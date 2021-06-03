@@ -29,7 +29,7 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-duotone-light.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
@@ -204,7 +204,7 @@
 <script src="/libs/cryptojs/crypto-js.min.js"></script>
 <script>
     (function() {
-        let pwd = '';
+        let pwd = '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08';
         if (pwd && pwd.length > 0) {
             if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
                 alert('密码错误，将返回主页！');
@@ -217,7 +217,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/../images/rust-logo.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -347,6 +347,15 @@
                 </div>
                 <div class="col s5 right-align">
                     
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Rust/" class="post-category">
+                                Rust
+                            </a>
+                        
+                    </div>
+                    
                 </div>
             </div>
 
@@ -361,7 +370,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-06-02
+                    2021-06-03
                 </div>
                 
 
@@ -438,23 +447,23 @@
 </blockquote>
 <p>有时一些新功能确实需要一定程度上破坏兼容性，为了最大程度上减少这些变动给用户带来的影响，Rust设计组又提出一个所谓的edition方案，目前有 2015 和 2018两种edition，我们可以设置”edition=2018”来告诉编译器我们使用的版本。</p>
 <h3 id="安装开发环境"><a href="#安装开发环境" class="headerlink" title="安装开发环境"></a>安装开发环境</h3><p>根据官网的<a target="_blank" rel="noopener" href="https://www.rust-lang.org/tools/install">推荐</a>，可以使用一个叫rustup的工具安装Rust相关的一整套工具链。命令如下：</p>
-<pre><code>curl --proto &#39;=https&#39; --tlsv1.2 -sSf https://sh.rustup.rs | sh
-</code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash">curl --proto <span class="token string">'=https'</span> --tlsv1.2 -sSf https://sh.rustup.rs <span class="token operator">|</span> sh
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>我们可以使用rustup工具管理工具链：</p>
-<pre><code>// 更新rustup本身
+<pre class="line-numbers language-bash"><code class="language-bash">// 更新rustup本身
 rustup self update
 // 更新工具链
 rustup update
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>也可以用它在stable/beta/nightly三种版本中轻松切换：</p>
-<pre><code>// 安装nightly版本的工具链
-rustup install nightly
+<pre class="line-numbers language-bash"><code class="language-bash">// 安装nightly版本的工具链
+rustup <span class="token function">install</span> nightly
 // 设置默认工具链是nightly版本
 rustup default nightly
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>若执行下列命令能够正确输出版本号则说明Rust安装成功：</p>
-<pre><code>rustc --version
-</code></pre>
+<pre class="line-numbers language-bash"><code class="language-bash">rustc --version
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>若安装不成功，请尝试将<code>~/.cargo/bin</code>加入PATH环境变量中去。</p>
 <p>在<code>~/.cargo/bin</code>目录下可以找到Rust的一些常用工具，如下图所示：</p>
 <p><img src="../images/hexo-post-2.png"></p>
@@ -599,8 +608,7 @@ rustup default nightly
                 <a href="/posts/56021c3e.html">
                     <div class="card-image">
                         
-                        
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="Rust学习笔记#0：初窥门径">
+                        <img src="/../images/rust-logo.jpg" class="responsive-img" alt="Rust学习笔记#0：初窥门径">
                         
                         <span class="card-title">Rust学习笔记#0：初窥门径</span>
                     </div>
@@ -608,7 +616,7 @@ rustup default nightly
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            本文介绍Rust语法之外的周边知识
                         
                     </div>
                     <div class="publish-info">
@@ -617,8 +625,12 @@ rustup default nightly
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            sugar
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Rust/" class="post-category">
+                                    Rust
+                                </a>
+                            
                             
                         </span>
                     </div>
@@ -645,8 +657,7 @@ rustup default nightly
                 <a href="/posts/56021c3e.html">
                     <div class="card-image">
                         
-                        
-                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="Rust学习笔记#0：初窥门径">
+                        <img src="/../images/rust-logo.jpg" class="responsive-img" alt="Rust学习笔记#0：初窥门径">
                         
                         <span class="card-title">Rust学习笔记#0：初窥门径</span>
                     </div>
@@ -654,7 +665,7 @@ rustup default nightly
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            本文介绍Rust语法之外的周边知识
                         
                     </div>
                     <div class="publish-info">
@@ -663,8 +674,12 @@ rustup default nightly
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            sugar
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Rust/" class="post-category">
+                                    Rust
+                                </a>
+                            
                             
                         </span>
                     </div>
