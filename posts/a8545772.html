@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Rust学习笔记#0：初窥门径, 清和与嘉平">
+    <meta name="keywords" content="《趣谈Linux操作系统》学习笔记, 清和与嘉平">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Rust学习笔记#0：初窥门径 | 清和与嘉平</title>
+    <title>《趣谈Linux操作系统》学习笔记 | 清和与嘉平</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -203,12 +203,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Rust学习笔记#0：初窥门径</h1>
+                    <h1 class="description center-align post-title">《趣谈Linux操作系统》学习笔记</h1>
                 </div>
             </div>
         </div>
@@ -324,12 +324,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Rust/">
-                                <span class="chip bg-color">Rust</span>
-                            </a>
-                        
                             <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
                                 <span class="chip bg-color">学习笔记</span>
+                            </a>
+                        
+                            <a href="/tags/Linux/">
+                                <span class="chip bg-color">Linux</span>
                             </a>
                         
                     </div>
@@ -340,8 +340,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Rust/" class="post-category">
-                                Rust
+                            <a href="/categories/Linux/" class="post-category">
+                                Linux
                             </a>
                         
                     </div>
@@ -353,28 +353,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-06-02
+                    2021-06-03
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-06-03
+                    2021-06-04
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.3k
+                    167
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    8 分
+                    1 分
                 </div>
                 
 
@@ -394,112 +394,18 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="为什么选择Rust"><a href="#为什么选择Rust" class="headerlink" title="为什么选择Rust"></a>为什么选择Rust</h3><p>这个世界上的编程语言不计其数，仅在 <a target="_blank" rel="noopener" href="https://www.tiobe.com/tiobe-index/">TIOBE</a>（开发语言排行榜）上被纳入统计范围的就有273种之多，下图是当下最流行的前20种编程语言。</p>
-<p><img src="../images/hexo-post-1.png"></p>
-<p>这些优秀的编程语言往往都有自己的绝活，例如C性能非常高，Java便于抽象擅长组织大型程序，Python适合小巧的脚本，等等。但同样，它们也并非完美，性能高的C容易产生段错误（segfault，由访问不属于本程序拥有的内存所造成的崩溃，例如空指针解引用等），擅长抽象的Java需要垃圾回收（GC），上手快的Python解释执行速度较慢。所以，编程语言的设计和发展仍有进步的空间，而Rust就是近年来涌现的新一代的综合各大编程语言优点的集大成者。</p>
-<p>Rust的设计者是这样定位这门语言的：</p>
-<blockquote>
-<p> Rust is a system’s programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety.</p>
-</blockquote>
-<p>Rust的突出优势可以总结为以下三点（无须看懂，知道Rust很厉害就完事了）：</p>
+                <h3 id="爬坡路线图"><a href="#爬坡路线图" class="headerlink" title="爬坡路线图"></a>爬坡路线图</h3><p><img src="../images/hexo-post-4.jpeg"></p>
+<p>附相关书籍推荐：</p>
 <ul>
-<li>内存安全：Rust最重要的特点就是可以提供内存安全保证，而且没有额外的性能损失。保证内存安全即不会出现内存访问错误，为此，Rust建立了严格的内存安全管理模型：<ul>
-<li>所有权系统：每个被分配的内存都有一个独占其所有权的指针，只有当该指针被销毁时，其对应的内存才能随之被释放。所有权系统借鉴了C++的RAII机制，这是Rust无GC但是可以安全管理内存的基石。</li>
-<li>借用和生命周期：每个变量都有其生命周期，一旦超出生命周期，变量就会被自动释放。如果是借用，则可以通过标记生命周期参数供编译器检查的方式，防止出现悬垂指针，也就是释放后使用的情况。</li>
+<li>第一步：《鸟哥的Linux私房菜》、《Linux系统管理技术手册》</li>
+<li>第二步：《unix环境高级编程》、《Unix/Linux编程实践教程》</li>
+<li>第三步：《深入理解Linux内核》、《庖丁解牛Linux内核分析》</li>
+<li>第四步：《Linux内核源码情景分析》、《Linux驱动开发》</li>
 </ul>
-</li>
-<li>零成本抽象：抽象表达能力是使用编程语言高效开发的必要条件，有些语言的抽象表达能力是靠牺牲性能换来的，而Rust的抽象表达能力不会存在运行时性能开销。Rust零成本抽象的基石是泛型和trait。</li>
-<li>并发：内存安全的bug和并发安全的bug产生都是由内存的不正当访问造成的，所以，利用装载了所有权的强大类型系统，Rust能够在编译期检查出多线程并发代码中的数据竞争问题。</li>
-</ul>
-<p>Rust以其独特的魅力已经连续多年荣膺StackOverflow网站最受程序员欢迎的编程语言，虽然目前其在TIOBE榜单上还未入前列，但未来互联网必定更加注重安全和高性能，所以应运而生的Rust必将大有可为。</p>
-<p>在学习Rust的语法之前，我们先一起来了解一下Rust的周边知识。</p>
-<h3 id="Rust常用网站"><a href="#Rust常用网站" class="headerlink" title="Rust常用网站"></a>Rust常用网站</h3><ul>
-<li>官方网站：点击<a target="_blank" rel="noopener" href="https://www.rust-lang.org/">这里</a>。在这里你可以找到官方教材TRPL等许多重要内容，所以探索一下此网站大有裨益。</li>
-<li>编译器是开源的：点击<a target="_blank" rel="noopener" href="https://github.com/rust-lang/rust">这里</a>。对Rust语言来说，开源社区也是语言的一部分，这是和其他商用语言的区别所在。</li>
-<li>语言设计和相关讨论：点击<a target="_blank" rel="noopener" href="https://github.com/rust-lang/rfcs">这里</a>。Rust每增加一个重要语言特性，都会经过标准的RFC流程，RFC文档是涵盖了语言特性的设计意图、详细设计、优缺点的完整技术方案。这对于我们学习者来说，可以通过阅读RFC来深入了解某个语言特性的来龙去脉，这将是一个极其宝贵的学习资源，有助于了解某个特性背后的原理。</li>
-<li>官方开源仓库：点击<a target="_blank" rel="noopener" href="https://crates.io/">这里</a>。该网站储存了Rust社区热门的开源库。</li>
-</ul>
-<h3 id="版本和发布策略"><a href="#版本和发布策略" class="headerlink" title="版本和发布策略"></a>版本和发布策略</h3><p>Rust编译器的版本号采用了“语义化版本号”（Semantic Versioning）的方案，版本格式为：主版本号.次版本号.修订号，其递增规则如下：</p>
-<ul>
-<li>主版本号：当做了不兼容的API修改</li>
-<li>次版本号：当做了向下兼容的功能性新增</li>
-<li>修订号：当做了向下兼容的问题修正</li>
-</ul>
-<p>Rust团队维护三个发行分支：</p>
-<ul>
-<li>开发版（nightly）：最新的功能将首先发布在此分支，供用户试用。</li>
-<li>测试版（beta）：将nightly版本中验证过的功能开放给用户使用，可以看作是stable版本的预发布版本。</li>
-<li>稳定版（stable）：每隔6个星期发布的稳定可靠的版本。</li>
-</ul>
-<p>Rust语言每个相对复杂一点的新功能，都要经历如下步骤才算真正稳定可用：</p>
-<blockquote>
-<p>RFC -&gt; Nightly -&gt; Beta -&gt; Stable</p>
-</blockquote>
-<p>有时一些新功能确实需要一定程度上破坏兼容性，为了最大程度上减少这些变动给用户带来的影响，Rust设计组又提出一个所谓的edition方案，目前有 2015 和 2018两种edition，我们可以设置”edition=2018”来告诉编译器我们使用的版本。</p>
-<h3 id="安装开发环境"><a href="#安装开发环境" class="headerlink" title="安装开发环境"></a>安装开发环境</h3><p>根据官网的<a target="_blank" rel="noopener" href="https://www.rust-lang.org/tools/install">推荐</a>，可以使用一个叫rustup的工具安装Rust相关的一整套工具链。命令如下：</p>
-<pre class=" language-bash"><code class="language-bash">curl --proto <span class="token string">'=https'</span> --tlsv1.2 -sSf https://sh.rustup.rs <span class="token operator">|</span> sh
-</code></pre>
-<p>我们可以使用rustup工具管理工具链：</p>
-<pre class=" language-bash"><code class="language-bash">// 更新rustup本身
-rustup self update
-// 更新工具链
-rustup update
-</code></pre>
-<p>也可以用它在stable/beta/nightly三种版本中轻松切换：</p>
-<pre class=" language-bash"><code class="language-bash">// 安装nightly版本的工具链
-rustup <span class="token function">install</span> nightly
-// 设置默认工具链是nightly版本
-rustup default nightly
-</code></pre>
-<p>若执行下列命令能够正确输出版本号则说明Rust安装成功：</p>
-<pre class=" language-bash"><code class="language-bash">rustc --version
-</code></pre>
-<p>若安装不成功，请尝试将<code>~/.cargo/bin</code>加入PATH环境变量中去。</p>
-<p>在<code>~/.cargo/bin</code>目录下可以找到Rust的一些常用工具，如下图所示：</p>
-<p><img src="../images/hexo-post-2.png"></p>
-<ul>
-<li>cargo：Rust的包管理器，类似于Python的pip、Node.js的npm。但cargo不仅局限于包管理，它还为Rust生态系统提供了标准的工作流，能够管理整个工作流程，从创建项目、运行单元测试和基准测试，到构建发布链接库，再到运行可执行文件，等等。</li>
-<li>rustc：Rust的编译器，负责将Rust源代码编译为可执行文件或其他库文件。rustc是Rust开发的，其输出的错误信息非常友好和详尽，远超你见过的任何一款编译器。</li>
-<li>rustdoc：文档生成器。</li>
-<li>rls和racer：为编辑器准备的代码提示工具。</li>
-<li>cargo-fmt和rustfmt：源代码格式化工具，有了这个，再也不用争论大括号是写在行尾还是另起一行了。</li>
-<li>rust-gdb和rust-lldb：调试器。</li>
-</ul>
-<p>对于IDE，Rust尚没有专属的IDE，我推荐Clion+Rust插件，已经非常好用了。</p>
-<h3 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h3><p>配置好了开发环境，如何能不写一个充满仪式感的Hello World程序呢？来，新建一个文件，命名为<code>hello_world.rs</code>，内容如下：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token comment" spellcheck="true">// hello_world.rs</span>
-<span class="token keyword">fn</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">let</span> s <span class="token operator">=</span> <span class="token string">"hello world!"</span><span class="token punctuation">;</span>
-    <span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{}"</span><span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>然后使用rustc编译它，可看到当前文件夹下生成了一个名为<code>hello_world</code>的可执行程序：</p>
-<p><img src="../images/hexo-post-3.png"></p>
-<h3 id="Rust的设计哲学"><a href="#Rust的设计哲学" class="headerlink" title="Rust的设计哲学"></a>Rust的设计哲学</h3><p>Rust是具有混合范式的“面向过程”式的编程语言，它包含了面向对象、函数式和泛型三种编程范式，其设计哲学如下：</p>
-<ul>
-<li>内存安全为第一准则</li>
-<li>注重并发安全，避免数据竞争</li>
-<li>持续提升性能</li>
-<li>保持语言的高度一致性</li>
-<li>语言必须有可见的实用性</li>
-<li>注重开发体验和学习体验</li>
-<li>现代化语言特性</li>
-<li>拥抱开源社区</li>
-</ul>
-<h3 id="学习Rust的建议"><a href="#学习Rust的建议" class="headerlink" title="学习Rust的建议"></a>学习Rust的建议</h3><p>这些建议来自于张汉东老师，我认为还是十分中肯的，所以列在此处和大家分享。</p>
-<ul>
-<li>从整体出发，不要让自己陷入到细节中去。先有高屋建瓴的结构性的认知，再深入语法细节，有利于建立知识网络，可以事半功倍。</li>
-<li>抛弃一次性学会的念头，分层次递进式学习。</li>
-<li>和你已知的知识建立联系。新语言新特性的出现的本质原因是为了解决某个问题，因此，当我们学习Rust的新特性时，可以和其他语言的旧特性进行对比，了解其改进的动机和方式，这有助于增强对语法的记忆和理解。</li>
-<li>学会阅读源码，从源码中学习。建议在学习语法时，顺带阅读源码。</li>
-<li>通过主题式阅读来填补知识空白。可以从其他语言的相同特性中了解语法的概念，观察不同语言对同一概念的不同实现方式，</li>
-<li>时刻把握Rust设计哲学。我们要从Rust的设计哲学去思考某种特性这样设计的原因。</li>
-<li>有意识的构建Rust的心智模型。有意识的训练以Rust的方法思考代码编写的方式。</li>
-</ul>
-<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><ul>
-<li>《Rust编程之道》张汉东</li>
-<li>《深入浅出Rust》范长春</li>
-</ul>
+<h3 id="1-Linux操作系统综述"><a href="#1-Linux操作系统综述" class="headerlink" title="#1 Linux操作系统综述"></a>#1 Linux操作系统综述</h3><p>操作系统其实就像一个软件外包公司，其内核就相当于这家外包公司的老板，下图是操作系统中各个模块和外包公司各个部门之间的对应关系。</p>
+<p><img src="../images/hexo-post-5.jpeg"></p>
+<p>下图是操作系统内核体系结构图。</p>
+<p><img src="../images/hexo-post-6.jpeg"></p>
 
                 
             </div>
@@ -526,7 +432,7 @@ rustup default nightly
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://janetmayle.github.io/janetmayle.github.io/posts/56021c3e.html">https://janetmayle.github.io/janetmayle.github.io/posts/56021c3e.html</a>
+                    <a href="https://janetmayle.github.io/janetmayle.github.io/posts/a8545772.html">https://janetmayle.github.io/janetmayle.github.io/posts/a8545772.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -564,12 +470,12 @@ rustup default nightly
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Rust/">
-                                    <span class="chip bg-color">Rust</span>
-                                </a>
-                            
                                 <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
                                     <span class="chip bg-color">学习笔记</span>
+                                </a>
+                            
+                                <a href="/tags/Linux/">
+                                    <span class="chip bg-color">Linux</span>
                                 </a>
                             
                         </div>
@@ -619,31 +525,31 @@ rustup default nightly
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/posts/a8545772.html">
+                <a href="/posts/8ab0a41e.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="《趣谈Linux操作系统》学习笔记">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="Rust学习笔记#1：一个猜谜游戏小项目">
                         
-                        <span class="card-title">《趣谈Linux操作系统》学习笔记</span>
+                        <span class="card-title">Rust学习笔记#1：一个猜谜游戏小项目</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            极客时间相关课程的学习笔记
+                            通过一个简单的小项目来对Rust宏观把握
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-03
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-04
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Linux/" class="post-category">
-                                    Linux
+                            <a href="/categories/Rust/" class="post-category">
+                                    Rust
                                 </a>
                             
                             
@@ -653,12 +559,12 @@ rustup default nightly
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-                        <span class="chip bg-color">学习笔记</span>
+                    <a href="/tags/Rust/">
+                        <span class="chip bg-color">Rust</span>
                     </a>
                     
-                    <a href="/tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
+                    <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">学习笔记</span>
                     </a>
                     
                 </div>
@@ -669,7 +575,7 @@ rustup default nightly
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
                 <a href="/posts/56021c3e.html">
@@ -703,7 +609,6 @@ rustup default nightly
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
