@@ -360,7 +360,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-06-04
+                    2021-06-06
                 </div>
                 
 
@@ -421,9 +421,9 @@
 </code></pre>
 <p>注意，后面的<code>--bin</code>意味着我们希望项目生成的是可执行程序，如果希望是library，则可以使用<code>--lib</code>选项。</p>
 <p>以上为在命令行中手工创建项目，在Clion中可以点击<code>File-&gt;New Project</code>后如下图填写，然后点击<code>Create</code>按钮：</p>
-<p><img src="../images/hexo-post-7.png"></p>
+<p><img src="../images/4.png"></p>
 <h3 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h3><p>我们可以使用<code>tree</code>命令或者直接在Clion中查看当前的文件夹结构，如下图所示：</p>
-<p><img src="../images/hexo-post-8.png"></p>
+<p><img src="../images/5.png"></p>
 <ul>
 <li>src/main.rs：这是cargo自动生成的rs文件。还记得前面讲的crate和mod的概念吗？在这个项目中，<code>guessing_game</code>是crate，<code>src</code>文件夹是mod，<code>main.rs</code>是<code>src</code>mod的入口。我们可以在<code>src</code>mod中创建子模块，但注意，这些子模块都要在<code>main.rs</code>中声明，否则无法参与编译。</li>
 <li>.gitignore：这是git忽略文件，不懂其作用的同学可以自行搜索。这里重点要说的是通过<code>cargo new</code>创建的项目天然就是一个git项目，这也印证了Rust对开源的拥护。</li>
@@ -435,9 +435,9 @@
 <pre class=" language-bash"><code class="language-bash">cargo check
 </code></pre>
 <p>在Clion中需要新加一个Configuration来执行<code>cargo check</code>命令，如下图所示：</p>
-<p><img src="../images/hexo-post-9.png"></p>
+<p><img src="../images/6.png"></p>
 <p>确保<code>cargo check</code>通过后，可以执行<code>cargo build</code>来执行编译。编译后会产生一个<code>target</code>文件夹，在<code>target/debug</code>下会有一个和crate同名的可执行文件。但一般为了方便，可以直接执行<code>cargo run</code>，这条命令等价于先编译后执行。下图是执行<code>cargo run</code>后Clion的控制台输出：</p>
-<p><img src="../images/hexo-post-10.png"></p>
+<p><img src="../images/7.png"></p>
 <h3 id="猜谜游戏"><a href="#猜谜游戏" class="headerlink" title="猜谜游戏"></a>猜谜游戏</h3><p>在完成了项目搭建后，接下来就要开始猜谜游戏的代码编写了，我将它们分成六部分：创建变量、输入、输出、错误处理、随机数生成、完整代码。</p>
 <h4 id="创建变量"><a href="#创建变量" class="headerlink" title="创建变量"></a>创建变量</h4><p>使用<code>let</code>语句创建变量，需要注意的是，在Rust中，变量默认是不可变的，可以在变量名前使用<code>mut</code>来使得变量可变：</p>
 <pre class=" language-rust"><code class="language-rust"><span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 不可变</span>
@@ -471,7 +471,7 @@ io<span class="token punctuation">:</span><span class="token punctuation">:</spa
 <h4 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h4><p>上一小节代码中还有一个<code>expect</code>没有分析，而这就涉及到Rust中的错误处理机制了。<code>read_line</code>的返回值类型是<code>io::Result</code>，它是<code>Result</code>类型在<code>io</code>模块的特化版本。<code>Result</code>是枚举类型，其成员为<code>Ok</code>和<code>Err</code>，<code>Ok</code> 成员表示操作成功，内部包含成功时产生的值。<code>Err </code>成员则意味着操作失败，并且包含失败的前因后果。</p>
 <p><code>Result</code>类型的作用是编码错误处理信息。<code>Result </code>类型像其他类型一样，拥有定义于其上的方法。<code>io::Result</code>的实例拥有<code>expect</code>方法。如果 <code>io::Result </code>实例的值是 <code>Err</code>，<code>expect</code> 会导致程序崩溃，并打印参数传递给 <code>expect </code>的信息。如果<code>io::Result</code>实例的值是 <code>Ok</code>，<code>expect </code>会获取 <code>Ok </code>中的值并返回。在本例中，这个值是用户输入到标准输入中的字节数。</p>
 <h4 id="随机数生成"><a href="#随机数生成" class="headerlink" title="随机数生成"></a>随机数生成</h4><p>猜谜游戏需要能够自动生成随机数。Rust标准库中尚未包含随机数功能，但我们可以通过引入外部crate来获得随机数功能。还记得Rust的官方开源仓库吗，那里可是有很多宝贝的。打开<code>https://crates.io/</code>，在搜索框中键入<code>rand</code>来搜索具有随机数功能的crate，出来的第一个结果就是我们需要的crate。</p>
-<p><img src="../images/hexo-post-11.png"></p>
+<p><img src="../images/8.png"></p>
 <p>现在我们将这个库引入到我们的项目中。打开<code>Cargo.toml</code>，在<code>[dependencies]</code>下添加：</p>
 <pre class=" language-toml"><code class="language-toml">[dependencies]rand = "0.8.3"
 </code></pre>
@@ -517,7 +517,7 @@ io<span class="token punctuation">:</span><span class="token punctuation">:</spa
 </code></pre>
 <p>其中，涉及控制流操作的<code>loop</code>、<code>match</code>、<code>continue</code>、<code>break</code>等语法，大家应当能够望文生义。对于这个完整代码，大家能够阅读并知道每一行干了啥即可，不必纠结于语法细节。</p>
 <p>猜谜游戏运行结果如下：</p>
-<p><img src="../images/hexo-post-12.png"></p>
+<p><img src="../images/9.png"></p>
 <h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><ul>
 <li>《The Rust Programming Language》</li>
 <li>《Rust编程之道》张汉东</li>
@@ -638,30 +638,29 @@ io<span class="token punctuation">:</span><span class="token punctuation">:</spa
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/posts/8ab0a41e.html">
+                <a href="/posts/f80c8a5a.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="Rust学习笔记#1：一个猜谜游戏小项目">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="Rust学习笔记#2：变量声明、绑定与引用">
                         
-                        <span class="card-title">Rust学习笔记#1：一个猜谜游戏小项目</span>
+                        <span class="card-title">Rust学习笔记#2：变量声明、绑定与引用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            通过一个简单的小项目来对Rust宏观把握
+                            介绍变量声明、绑定与引用的基础知识
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-04
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-08
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -674,7 +673,6 @@ io<span class="token punctuation">:</span><span class="token punctuation">:</spa
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -697,31 +695,31 @@ io<span class="token punctuation">:</span><span class="token punctuation">:</spa
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/posts/a8545772.html">
+                <a href="/posts/56021c3e.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="《趣谈Linux操作系统》学习笔记">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="Rust学习笔记#0：初窥门径">
                         
-                        <span class="card-title">《趣谈Linux操作系统》学习笔记</span>
+                        <span class="card-title">Rust学习笔记#0：初窥门径</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            极客时间相关课程的学习笔记
+                            介绍Rust语法之外的周边知识
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-03
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-02
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Linux/" class="post-category">
-                                    Linux
+                            <a href="/categories/Rust/" class="post-category">
+                                    Rust
                                 </a>
                             
                             
@@ -731,12 +729,12 @@ io<span class="token punctuation">:</span><span class="token punctuation">:</spa
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-                        <span class="chip bg-color">学习笔记</span>
+                    <a href="/tags/Rust/">
+                        <span class="chip bg-color">Rust</span>
                     </a>
                     
-                    <a href="/tags/Linux/">
-                        <span class="chip bg-color">Linux</span>
+                    <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">学习笔记</span>
                     </a>
                     
                 </div>
@@ -924,7 +922,7 @@ io<span class="token punctuation">:</span><span class="token punctuation">:</spa
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">5.4k</span>
+                        class="white-color">7.5k</span>
             
             
             
