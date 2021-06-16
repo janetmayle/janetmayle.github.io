@@ -360,14 +360,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-06-06
+                    2021-06-16
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.9k
+                    3k
                 </div>
                 
 
@@ -397,15 +397,15 @@
                 <p>在深入探索Rust语法的细枝末节之前，先通过一个麻雀虽小但五脏俱全的小项目来整体把握Rust，这样可以避免迷失在细节的海洋中。我们可能会通过这个小项目一下子接触到很多新概念，但不必惊慌，我们只需浅尝辄止对这些概念有个印象即可。</p>
 <p>《TRPL》（Rustaceans对《The Rust Programming Language》的爱称）中就给出了一个经典的猜谜游戏的例子，我们一起来学习它。</p>
 <blockquote>
-<p>猜谜游戏：程序将会随机生成一个 1 到 100 之间的随机整数。接着它会请玩家猜一个数并输入，然后提示猜测是大了还是小了。如果猜对了，它会打印祝贺信息并退出。</p>
+<p>猜谜游戏：程序将会随机生成一个 1 到 100 之间的随机整数。接着它会请玩家猜一个数并输入，然后提示猜测是大了还是小了。如果猜错了，会请玩家继续猜测；如果猜对了，它会打印祝贺信息并退出。</p>
 </blockquote>
 <h3 id="Rust如何管理项目"><a href="#Rust如何管理项目" class="headerlink" title="Rust如何管理项目"></a>Rust如何管理项目</h3><p>并不是所有的代码都像<code>hello_world.rs</code>一样，一个文件就可以搞定。一个项目往往具有复杂的代码，我们需要一种机制来管理这种复杂性，将一个项目切分成若干小部分，每个部分再进行切分，层层抽象，直到达到人脑可以处理的规模。每种编程语言都有这样的机制，例如Java的package机制，Rust也不例外。</p>
-<p>Rust用了两个概念来管理项目：一个是crate（项目），一个是mod（模块）。模块是用于在crate内部进行分层和封装的机制，模块内部可以包含模块。</p>
+<p>Rust用了两个概念来管理项目：一个是crate（项目），一个是mod（模块）。模块（mod）是用于在项目（crate）内部进行分层和封装的机制，模块内部可以包含模块。</p>
 <ul>
 <li>crate：可以简单理解为一个项目，crate是Rust中的独立编译单元（compile unit），每个crate对应生成一个库或者可执行文件。作为对比，我们比较熟悉的C语言中，一个单独的.c文件和其所有的include文件组成一个编译单元，每个.c生成一个.o，然后将这些.o链接起来生成可执行文件。</li>
 <li>mod：可以简单理解为命名空间。mod可以嵌套（注意crate之间不能出现循环引用），还可以控制内部元素的可见性。</li>
 </ul>
-<p>说到可见性问题，在Rust中，元素默认都是私有的，用<code>pub</code>关键字修饰的才是公开的。公开和私有的访问权限规定如下：</p>
+<p>说到可见性问题，在Rust中，元素默认都是私有的，用<code>pub</code>关键字修饰的元素才是公开的。公开和私有的访问权限规定如下：</p>
 <ul>
 <li>如果一个元素是私有的，那么只有本模块内的元素以及它的子模块可以访问</li>
 <li>如果一个元素是公开的，那么可以在本模块外的作用域访问它。</li>
@@ -414,7 +414,7 @@
 <ul>
 <li>在一个rs文件中创建内嵌模块，直接使用<code>mod</code>关键字即可。</li>
 <li>独立的一个rs文件就是一个模块，文件名即是模块名。</li>
-<li>一个文件夹也可以创建一个模块，文件夹内部要有一个<code>xxx.rs</code>文件，这个文件是这个模块的入口。必须要在这个<code>xxx.rs</code>中声明其子模块，否则子模块无法被当成这个项目的源码进行编译。</li>
+<li>一个文件夹也可以视为一个模块，文件夹内部要有一个<code>mod.rs</code>文件，这个文件是这个模块的入口。注意必须要在这个<code>mod.rs</code>中声明其子模块，否则子模块无法被当成这个项目的源码进行编译；另外，也需要在该文件夹所在的mod的入口文件中声明该文件夹。</li>
 </ul>
 <h3 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h3><p>cargo不仅是Rust的包管理器，还可以用于创建项目。使用下列命令可以创建一个名为<code>guessing_game</code>的项目：</p>
 <pre class=" language-bash"><code class="language-bash">cargo new guessing_game --bin
@@ -425,7 +425,7 @@
 <h3 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h3><p>我们可以使用<code>tree</code>命令或者直接在Clion中查看当前的文件夹结构，如下图所示：</p>
 <p><img src="../images/5.png"></p>
 <ul>
-<li>src/main.rs：这是cargo自动生成的rs文件。还记得前面讲的crate和mod的概念吗？在这个项目中，<code>guessing_game</code>是crate，<code>src</code>文件夹是mod，<code>main.rs</code>是<code>src</code>mod的入口。我们可以在<code>src</code>mod中创建子模块，但注意，这些子模块都要在<code>main.rs</code>中声明，否则无法参与编译。</li>
+<li>src/main.rs：这是cargo自动生成的rs文件。还记得前面讲的crate和mod的概念吗？在这个项目中，<code>guessing_game</code>是crate，<code>src</code>文件夹是mod，<code>main.rs</code>是<code>src</code>mod的入口（相应的，<code>lib.rs</code>是library类型crate的入口）。我们可以在<code>src</code>mod中创建子模块，但注意，这些子模块都要在<code>main.rs</code>中声明，否则无法参与编译。</li>
 <li>.gitignore：这是git忽略文件，不懂其作用的同学可以自行搜索。这里重点要说的是通过<code>cargo new</code>创建的项目天然就是一个git项目，这也印证了Rust对开源的拥护。</li>
 <li>Cargo.toml：这是项目管理配置文件。TOML是一种非常简洁好用的配置文件格式，TOML是<code>Tom&#39;s Obvious, Minimal Language</code>的首字母缩写，这里的Tom是Github的联合创始人之一，感兴趣的同学可以进一步自行了解TOML配置文件的写法。</li>
 <li>Cargo.lock：该文件包含项目依赖项的确切信息，由Cargo维护，我们无须关心它。</li>
@@ -468,9 +468,9 @@ io<span class="token punctuation">:</span><span class="token punctuation">:</spa
 <pre class=" language-rust"><code class="language-rust"><span class="token keyword">let</span> guess<span class="token punctuation">:</span> u32 <span class="token operator">=</span> guess<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">expect</span><span class="token punctuation">(</span><span class="token string">"Please type a number!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>字符串的 <code>parse </code>方法将字符串解析成数字。因为这个方法可以解析多种数字类型，因此需要告诉 Rust 具体的数字类型，这里通过 <code>let guess: u32</code> 指定。<code>guess </code>后的冒号<code>:</code>告诉 Rust 我们指定了变量的类型。Rust 有一些内建的数字类型，u32 是一个无符号的 32 位整型。<code>trim</code>方法用于消除回车空格等符号。</p>
-<h4 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h4><p>上一小节代码中还有一个<code>expect</code>没有分析，而这就涉及到Rust中的错误处理机制了。<code>read_line</code>的返回值类型是<code>io::Result</code>，它是<code>Result</code>类型在<code>io</code>模块的特化版本。<code>Result</code>是枚举类型，其成员为<code>Ok</code>和<code>Err</code>，<code>Ok</code> 成员表示操作成功，内部包含成功时产生的值。<code>Err </code>成员则意味着操作失败，并且包含失败的前因后果。</p>
+<h4 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h4><p>上一小节代码中还有一个<code>expect</code>没有分析，而这就涉及到Rust中的错误处理机制了。<code>read_line</code>的返回值类型是<code>io::Result</code>，它是<code>Result</code>类型在<code>io</code>模块的特化版本。<code>Result</code>是枚举类型，其成员为<code>Ok</code>和<code>Err</code>，<code>Ok</code> 成员表示操作成功，内部包含成功时产生的值。<code>Err </code>成员则意味着操作失败，内部包含失败的前因后果。</p>
 <p><code>Result</code>类型的作用是编码错误处理信息。<code>Result </code>类型像其他类型一样，拥有定义于其上的方法。<code>io::Result</code>的实例拥有<code>expect</code>方法。如果 <code>io::Result </code>实例的值是 <code>Err</code>，<code>expect</code> 会导致程序崩溃，并打印参数传递给 <code>expect </code>的信息。如果<code>io::Result</code>实例的值是 <code>Ok</code>，<code>expect </code>会获取 <code>Ok </code>中的值并返回。在本例中，这个值是用户输入到标准输入中的字节数。</p>
-<h4 id="随机数生成"><a href="#随机数生成" class="headerlink" title="随机数生成"></a>随机数生成</h4><p>猜谜游戏需要能够自动生成随机数。Rust标准库中尚未包含随机数功能，但我们可以通过引入外部crate来获得随机数功能。还记得Rust的官方开源仓库吗，那里可是有很多宝贝的。打开<code>https://crates.io/</code>，在搜索框中键入<code>rand</code>来搜索具有随机数功能的crate，出来的第一个结果就是我们需要的crate。</p>
+<h4 id="随机数生成"><a href="#随机数生成" class="headerlink" title="随机数生成"></a>随机数生成</h4><p>猜谜游戏需要能够自动生成随机数。Rust标准库中并未包含随机数功能，但我们可以通过引入外部crate来获得随机数功能。还记得Rust的官方开源仓库吗，那里可是有很多宝贝的。打开<code>https://crates.io/</code>，在搜索框中键入<code>rand</code>来搜索具有随机数功能的crate，出来的第一个结果就是我们需要的crate。</p>
 <p><img src="../images/8.png"></p>
 <p>现在我们将这个库引入到我们的项目中。打开<code>Cargo.toml</code>，在<code>[dependencies]</code>下添加：</p>
 <pre class=" language-toml"><code class="language-toml">[dependencies]rand = "0.8.3"
@@ -515,7 +515,7 @@ io<span class="token punctuation">:</span><span class="token punctuation">:</spa
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>其中，涉及控制流操作的<code>loop</code>、<code>match</code>、<code>continue</code>、<code>break</code>等语法，大家应当能够望文生义。对于这个完整代码，大家能够阅读并知道每一行干了啥即可，不必纠结于语法细节。</p>
+<p>其中，涉及控制流操作的<code>loop</code>、<code>match</code>、<code>continue</code>、<code>break</code>等语法，大家应当能够望文生义。对于这个完整代码，大家能够阅读并大概知道每一行干了啥即可，不必纠结于语法细节。</p>
 <p>猜谜游戏运行结果如下：</p>
 <p><img src="../images/9.png"></p>
 <h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><ul>
@@ -922,7 +922,7 @@ io<span class="token punctuation">:</span><span class="token punctuation">:</spa
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">7.5k</span>
+                        class="white-color">11.7k</span>
             
             
             

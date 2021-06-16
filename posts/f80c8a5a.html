@@ -360,21 +360,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-06-08
+                    2021-06-16
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.2k
+                    2.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分
+                    8 分
                 </div>
                 
 
@@ -417,6 +417,7 @@ y <span class="token operator">=</span> <span class="token number">10</span><spa
 x <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 初始化变量x，不需要x是mut，因为这是初始化不是修改</span>
 <span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{}"</span><span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
+<p>不过，为了减少代码阅读的负担，笔者还是建议在变量声明时就初始化。</p>
 <p>Rust中的合法标识符（包括变量名、函数名等）必须由数字、字母、下划线组成，且不能以数字开头。注意，单独的下划线是一个特殊的标识符，在编译器内部是被特殊处理的，不能作为普通变量使用，其具体用法这里暂且不表。Rust中关于变量的命名规范是蛇形命名法，使用下划线，一般用小写，即<code>file_name</code>。</p>
 <h4 id="变量遮蔽"><a href="#变量遮蔽" class="headerlink" title="变量遮蔽"></a>变量遮蔽</h4><p>Rust中允许在同一个代码块中声明同样名字的变量，如果这样做，后面声明的变量会将前面声明的变量遮蔽（Shadowing）起来，从而前面的变量将无法访问。例如：</p>
 <pre class=" language-rust"><code class="language-rust"><span class="token keyword">let</span> x <span class="token operator">=</span> <span class="token string">"hello"</span><span class="token punctuation">;</span>
@@ -425,8 +426,8 @@ x <span class="token operator">=</span> <span class="token number">1</span><span
 <span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"x is {}"</span><span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>上面这种形式的代码在很多编程语言中是无法编译通过的，因为变量x被重复声明，但在Rust中是可以编译通过的：前后两个<code>x</code>是完全不同的两个变量，内存空间不同，类型也不同，只是恰巧名字相同。</p>
-<p>Rust这种设计有时非常实用，例如，我们需要在同一个函数内部把一个变量转换为另一个类型的变量，但又不想给它们起不同的名字。但是，我个人认为变量遮蔽可能会带来阅读代码时的歧义，但以我现在的水平尚不能仔细分析变量遮蔽这一特性的利弊权衡，或许未来能够在RFC中找到答案。</p>
-<h4 id="类型推导"><a href="#类型推导" class="headerlink" title="类型推导"></a>类型推导</h4><p>Rust编译器的类型推导功能很强大，不仅可以从变量声明的当前语句中获取信息进行推导，而且还能通过上下文信息进行推导。类型推导和“动态类型”是两码事，Rust仍然是静态类型的，所有变量的类型都必须在编译阶段确定，类型推导只是辅助我们不需要显示写出类型而已。</p>
+<p>Rust这种设计有时非常实用，例如，我们需要在同一个函数内部把一个变量转换为另一个类型的变量，但又不想给它们起不同的名字。但是，我个人认为变量遮蔽可能会带来阅读代码时的歧义，不建议滥用，建议有限使用，例如函数参数是字符串类型的<code>file_path</code>，这是使用变量遮蔽将其转换为Path类型的<code>file_path</code>就比较合适。但以我现在的水平尚不能仔细分析变量遮蔽这一特性的利弊权衡，或许未来能够在RFC中找到答案。</p>
+<h4 id="类型推导"><a href="#类型推导" class="headerlink" title="类型推导"></a>类型推导</h4><p>Rust编译器的类型推导功能很强大，不仅可以从变量声明的当前语句中获取信息进行推导，而且还能通过上下文信息进行推导。类型推导和“动态类型”是两码事，Rust仍然是静态类型的，所有变量的类型都必须在编译阶段确定，类型推导只是辅助我们在某些情况下不需要显示写出类型而已。</p>
 <h4 id="类型别名"><a href="#类型别名" class="headerlink" title="类型别名"></a>类型别名</h4><p>可以使用<code>type</code>关键字给同一个类型起个别名，例如：</p>
 <pre class=" language-rust"><code class="language-rust"><span class="token keyword">type</span> Age <span class="token operator">=</span> u32<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// u32代表无符号的32位整数类型</span>
 <span class="token keyword">let</span> x<span class="token punctuation">:</span> Age <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
@@ -441,18 +442,18 @@ x <span class="token operator">=</span> <span class="token number">1</span><span
 <li>初始化必须是编译期可确定的常量</li>
 <li>带有<code>mut</code>修饰的全局变量，在使用的时候必须使用<code>unsafe</code>关键字。</li>
 </ul>
-<p><code>unsafe</code>关键字用于逃过Rust编译器的检查以写一些可能存在危险的代码，当下无须深入研究。从上面第三条限制可以看出，Rust并不鼓励我们使用可变的全局变量，更希望我们把全局变量用成全局常量。注意，全局变量的声明周期是整个程序，从启动到退出。</p>
+<p><code>unsafe</code>关键字用于逃过Rust编译器的检查以写一些可能存在危险的代码，当下无须深入研究。从上面第三条限制可以看出，Rust并不鼓励我们使用可变的全局变量，更希望我们把全局变量用成全局常量。注意，全局变量的声明周期是整个程序从启动到退出。</p>
 <h4 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h4><p>可以使用<code>const</code>关键字声明一个常量：</p>
 <pre class=" language-rust"><code class="language-rust"><span class="token keyword">const</span> GLOBAL<span class="token punctuation">:</span> i32 <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 </code></pre>
 <p>常量和静态变量最大的区别在于：编译器不一定会给常量分配内存空间，可能会在编译过程中将常量內联优化。</p>
-<h3 id="变量绑定"><a href="#变量绑定" class="headerlink" title="变量绑定"></a>变量绑定</h3><p>通过<code>let</code>关键字来创建变量，这是Rust语言从函数式语言中借鉴的语法形式。<code>let</code>创建的变量一般称为绑定（binding），而不是我们通常说的赋值，因为它表明了位置表达式和值表达式之间建立的一种关联关系。</p>
+<h3 id="变量绑定"><a href="#变量绑定" class="headerlink" title="变量绑定"></a>变量绑定</h3><p>通过<code>let</code>关键字来创建变量，这是Rust语言从函数式语言中借鉴的语法形式。<code>let</code>创建的变量一般称为绑定（binding），而不是我们通常说的赋值，因为它表达的是位置表达式和值表达式之间建立的一种关联关系。</p>
 <p>Rust中的表达式可以分为位置表达式和值表达式，在其他语言中，一般称为左值和右值。</p>
 <ul>
 <li>位置表达式：表示内存位置的表达式，有本地变量、静态变量、解引用、数组索引和字段引用五种。通过位置表达式可以对某个数据单元的内存进行读写。</li>
 <li>值表达式：只引用了某个存储单元地址中的数据，相当于数据值，只能进行读操作。值表达式要么是字面量，要么是表达式求值过程中创建的临时值。</li>
 </ul>
-<p>表达式的求值过程在不同的上下文中会有不同的结果，求值上下文也分位置上下文和值上下文。下面几种表达式属于位置上下文（不必看懂，知道就好）：</p>
+<p>表达式的求值过程在不同的上下文中会有不同的结果，求值上下文也分位置上下文和值上下文。下面几种表达式属于位置上下文（不必看懂，了解就好）：</p>
 <ul>
 <li>赋值或者复合赋值语句左侧的操作数</li>
 <li>一元引用表达式的独立操作数</li>
@@ -481,7 +482,7 @@ x <span class="token operator">=</span> <span class="token number">1</span><span
 <span class="token function">assert_eq!</span><span class="token punctuation">(</span><span class="token number">32</span><span class="token punctuation">,</span> <span class="token operator">*</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>在上面的代码中，32这个值的所有权归变量x所有，变量y中存储的是其地址，最后通过解引用操作符<code>*</code>将引用y中的值取出来，以供<code>assert_eq!</code>宏使用，因为变量x仍旧保留它们的所有权，所以引用也被称为借用。</p>
-<p>生命周期是Rust的核心概念，而所有权、借用等概念又和生命周期息息相关，但目前先不去深入了解它，待把基础语法掌握后，再去学习Rust的精髓，方能事半功倍。</p>
+<p>生命周期是Rust的核心概念，而所有权、借用等概念又和生命周期息息相关，但目前先不必去深入了解它，待把基础语法掌握后，再去学习Rust的精髓，方能事半功倍。</p>
 <h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><ul>
 <li>《Rust编程之道》张汉东</li>
 <li>《深入浅出Rust》范长春</li>
@@ -601,30 +602,29 @@ x <span class="token operator">=</span> <span class="token number">1</span><span
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/posts/f80c8a5a.html">
+                <a href="/posts/879d15dc.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="Rust学习笔记#2：变量声明、绑定与引用">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Rust学习笔记#3：类型">
                         
-                        <span class="card-title">Rust学习笔记#2：变量声明、绑定与引用</span>
+                        <span class="card-title">Rust学习笔记#3：类型</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            介绍变量声明、绑定与引用的基础知识
+                            介绍基本和复合数据类型的概念
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-08
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-16
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -637,7 +637,6 @@ x <span class="token operator">=</span> <span class="token number">1</span><span
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -887,7 +886,7 @@ x <span class="token operator">=</span> <span class="token number">1</span><span
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">7.5k</span>
+                        class="white-color">11.7k</span>
             
             
             
