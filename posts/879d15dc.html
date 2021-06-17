@@ -402,101 +402,107 @@
 <li>在静态类型语言中，依靠编译器自动推导类型而不需要显式指定类型的语言属于显式静态类型，反之则是隐式。Rust的编译器具有自动推导类型的能力，但还不够强大，在很多地方仍需要显式指定类型，类型仍然是Rust语法的一部分。</li>
 </ul>
 <p>Rust中一切皆表达式，表达式皆有值，值皆有类型，因此，Rust中一切皆类型。Rust中包含基本的原生类型和复合类型，也包含线程崩溃等无返回值的never类型。Rust类型系统吸收百家之长，基本囊括了编程中会遇到的各种情况，一般不会有未定义的行为出现，所以说，Rust是类型安全的语言。</p>
-<h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><h4 id="布尔类型"><a href="#布尔类型" class="headerlink" title="布尔类型"></a>布尔类型</h4><p> Rust内置了布尔类型，类型名为<code>bool</code>，它有两个值：<code>true</code>和<code>false</code>。示例如下：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">let</span> x <span class="token operator">=</span> <span class="token keyword">true</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 不显示声明类型，自动推断x为bool类型</span>
+<h3 id="基本数据类型">基本数据类型</h3>
+<h4 id="布尔类型">布尔类型</h4>
+<p>Rust内置了布尔类型，类型名为<code>bool</code>，它有两个值：<code>true</code>和<code>false</code>。示例如下：</p>
+<pre class=" language-language-rust"><code class="language-language-rust">let x = true; // 不显示声明类型，自动推断x为bool类型
 
-<span class="token keyword">let</span> y<span class="token punctuation">:</span> bool <span class="token operator">=</span> <span class="token operator">!</span>x<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 取反运算</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{}"</span><span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+let y: bool = !x; // 取反运算
+println!("{}", y);
 
-<span class="token keyword">let</span> z <span class="token operator">=</span> x <span class="token operator">&amp;&amp;</span> y<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 逻辑与，带短路功能</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{}"</span><span class="token punctuation">,</span> z<span class="token punctuation">)</span><span class="token punctuation">;</span>
+let z = x && y; // 逻辑与，带短路功能
+println!("{}", z);
 
-<span class="token keyword">let</span> z <span class="token operator">=</span> x <span class="token operator">||</span> y<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 逻辑或，带短路功能</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{}"</span><span class="token punctuation">,</span> z<span class="token punctuation">)</span><span class="token punctuation">;</span>
+let z = x || y; // 逻辑或，带短路功能
+println!("{}", z);
 
-<span class="token keyword">let</span> z <span class="token operator">=</span> x <span class="token operator">&amp;</span> y<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 按位与</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{}"</span><span class="token punctuation">,</span> z<span class="token punctuation">)</span><span class="token punctuation">;</span>
+let z = x & y; // 按位与
+println!("{}", z);
 
-<span class="token keyword">let</span> z <span class="token operator">=</span> x <span class="token operator">|</span> y<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 按位或</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{}"</span><span class="token punctuation">,</span> z<span class="token punctuation">)</span><span class="token punctuation">;</span>
+let z = x | y; // 按位或
+println!("{}", z);
 
-<span class="token keyword">let</span> z <span class="token operator">=</span> x <span class="token operator">^</span> y<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 按位异或</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{}"</span><span class="token punctuation">,</span> z<span class="token punctuation">)</span><span class="token punctuation">;</span>
+let z = x ^ y; // 按位异或
+println!("{}", z);
 </code></pre>
 <p>使用布尔值的主要场景是条件表达式，但注意，Rust并不支持将数字转换为<code>bool</code>类型。</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">let</span> x <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-<span class="token keyword">if</span> x <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token comment" spellcheck="true">// error[E0308]: mismatched types, expected `bool`, found integer</span>
+<pre class=" language-language-rust"><code class="language-language-rust">let x = 1;
+if x {} // error[E0308]: mismatched types, expected `bool`, found integer
 </code></pre>
-<h4 id="字符类型"><a href="#字符类型" class="headerlink" title="字符类型"></a>字符类型</h4><p>字符类型由<code>char</code>表示，用单引号定义，代表一个unicode标量值。由于<code>char</code>类型的设计目的是描述任意一个unicode字符，所以它占据的空间不是1个字节，而是4个字节。</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token string">'a'</span><span class="token punctuation">;</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{}"</span><span class="token punctuation">,</span> a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<h4 id="字符类型">字符类型</h4>
+<p>字符类型由<code>char</code>表示，用单引号定义，代表一个unicode标量值。由于<code>char</code>类型的设计目的是描述任意一个unicode字符，所以它占据的空间不是1个字节，而是4个字节。</p>
+<pre class=" language-language-rust"><code class="language-language-rust">let a = 'a';
+println!("{}", a);
 
-<span class="token keyword">let</span> heart_eyed_cat <span class="token operator">=</span> <span class="token string">'😻'</span><span class="token punctuation">;</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{}"</span><span class="token punctuation">,</span> heart_eyed_cat<span class="token punctuation">)</span><span class="token punctuation">;</span>
+let heart_eyed_cat = '😻';
+println!("{}", heart_eyed_cat);
 </code></pre>
-<h4 id="整数类型"><a href="#整数类型" class="headerlink" title="整数类型"></a>整数类型</h4><p>Rust中，各种整数类型之间的主要区分特征是：有符号/无符号，占据空间大小。</p>
+<h4 id="整数类型">整数类型</h4>
+<p>Rust中，各种整数类型之间的主要区分特征是：有符号/无符号，占据空间大小。</p>
 <table>
 <thead>
 <tr>
-<th align="center">长度</th>
-<th align="center">有符号</th>
-<th align="center">无符号</th>
+<th style="text-align:center">长度</th>
+<th style="text-align:center">有符号</th>
+<th style="text-align:center">无符号</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">8-bit</td>
-<td align="center"><code>i8</code></td>
-<td align="center"><code>u8</code></td>
+<tbody>
+<tr>
+<td style="text-align:center">8-bit</td>
+<td style="text-align:center"><code>i8</code></td>
+<td style="text-align:center"><code>u8</code></td>
 </tr>
 <tr>
-<td align="center">16-bit</td>
-<td align="center"><code>i16</code></td>
-<td align="center"><code>u16</code></td>
+<td style="text-align:center">16-bit</td>
+<td style="text-align:center"><code>i16</code></td>
+<td style="text-align:center"><code>u16</code></td>
 </tr>
 <tr>
-<td align="center">32-bit</td>
-<td align="center"><code>i32</code></td>
-<td align="center"><code>u32</code></td>
+<td style="text-align:center">32-bit</td>
+<td style="text-align:center"><code>i32</code></td>
+<td style="text-align:center"><code>u32</code></td>
 </tr>
 <tr>
-<td align="center">64-bit</td>
-<td align="center"><code>i64</code></td>
-<td align="center"><code>u64</code></td>
+<td style="text-align:center">64-bit</td>
+<td style="text-align:center"><code>i64</code></td>
+<td style="text-align:center"><code>u64</code></td>
 </tr>
 <tr>
-<td align="center">128-bit</td>
-<td align="center"><code>i128</code></td>
-<td align="center"><code>u128</code></td>
+<td style="text-align:center">128-bit</td>
+<td style="text-align:center"><code>i128</code></td>
+<td style="text-align:center"><code>u128</code></td>
 </tr>
 <tr>
-<td align="center">arch</td>
-<td align="center"><code>isize</code></td>
-<td align="center"><code>usize</code></td>
+<td style="text-align:center">arch</td>
+<td style="text-align:center"><code>isize</code></td>
+<td style="text-align:center"><code>usize</code></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <p>有无符号代表数字能否为负值：</p>
 <ul>
 <li>有符号：每一个有符号的类型的表达范围为 [$-2^{n-1}$,  $2^{n-1} - 1$]，其中n为类型的长度。</li>
 <li>无符号：每一个无符号的类型的表达范围为 [0,  $2^n - 1$]，其中n为类型的长度。</li>
 </ul>
 <p>另外，<code>isize</code>和<code>usize</code>依赖于运行程序的计算机架构：64 位架构上它们是 64 位的， 32 位架构上它们是 32 位的。其他一些琐碎的知识点一并体现在下面的代码注释中：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token comment" spellcheck="true">// 若编译器无法推断变量的具体类型，则自动默认为i32类型</span>
-<span class="token keyword">let</span> var <span class="token operator">=</span> <span class="token number">32</span><span class="token punctuation">;</span>
+<pre class=" language-language-rust"><code class="language-language-rust">// 若编译器无法推断变量的具体类型，则自动默认为i32类型
+let var = 32;
 
-<span class="token comment" spellcheck="true">// 以0x开头代表十六进制表示</span>
-<span class="token keyword">let</span> var <span class="token operator">=</span> <span class="token number">0xFF</span><span class="token punctuation">;</span>
+// 以0x开头代表十六进制表示
+let var = 0xFF;
 
-<span class="token comment" spellcheck="true">// 以0o开头代表八进制表示</span>
-<span class="token keyword">let</span> var <span class="token operator">=</span> <span class="token number">0o55</span><span class="token punctuation">;</span>
+// 以0o开头代表八进制表示
+let var = 0o55;
 
-<span class="token comment" spellcheck="true">// 以0b开头代表二进制表示</span>
-<span class="token keyword">let</span> var <span class="token operator">=</span> <span class="token number">0b1001</span><span class="token punctuation">;</span>
+// 以0b开头代表二进制表示
+let var = 0b1001;
 
-<span class="token comment" spellcheck="true">// 可在数字字面量中任意地方添加下划线，以方便阅读</span>
-<span class="token keyword">let</span> var <span class="token operator">=</span> 0x_1234_ABCD<span class="token punctuation">;</span>
+// 可在数字字面量中任意地方添加下划线，以方便阅读
+let var = 0x_1234_ABCD;
 
-<span class="token comment" spellcheck="true">// 字面量后面可以添加后缀，以标明具体类型</span>
-<span class="token keyword">let</span> var <span class="token operator">=</span> <span class="token number">32u8</span><span class="token punctuation">;</span>
+// 字面量后面可以添加后缀，以标明具体类型
+let var = 32u8;
 </code></pre>
 <p>Rust的数字表达策略和C语言不同，C语言标准中对许多类型的大小并没有做强制规定，比如<code>int</code>类型在不同平台上可能是不同的大小，这给程序员带来了许多不必要的麻烦。相反，Rust在语言标准中规定好各个类型的大小，让编译器针对不同平台做适配，生成不同的代码，是更合理的选择。</p>
 <p>整数运算中有一个让人头疼的问题是“溢出”。在C语言中，对于无符号类型，如果超过表示范围，则自动舍弃高位数据；对于有符号类型，如果超过表示范围，C标准规定这是未定义行为，这就是说编译器随便怎么处理都可以。未定义行为有利于编译器做一些更激进的性能优化，但这容易在极端场景下产生诡异的bug。</p>
@@ -505,142 +511,156 @@
 <li>debug模式：编译器会自动插入整数溢出检查，一旦发生溢出，则会引发panic（一种崩溃机制，暂且不表）;</li>
 <li>release模式：不检查整数溢出，而是采用自动舍弃高位的方式。</li>
 </ul>
-<h4 id="浮点类型"><a href="#浮点类型" class="headerlink" title="浮点类型"></a>浮点类型</h4><p>Rust提供了基于IEEE 754标准的浮点类型，按占据空间大小区分，分别为<code>f32</code>和<code>f64</code>，其使用方法与整型差别不大。如果不加后缀或没有指定类型，Rust会默认推断浮点数为<code>f64</code>类型，因为在现代CPU中，它与<code>f32</code>速度几乎一样，且精度还更高。</p>
+<h4 id="浮点类型">浮点类型</h4>
+<p>Rust提供了基于IEEE 754标准的浮点类型，按占据空间大小区分，分别为<code>f32</code>和<code>f64</code>，其使用方法与整型差别不大。如果不加后缀或没有指定类型，Rust会默认推断浮点数为<code>f64</code>类型，因为在现代CPU中，它与<code>f32</code>速度几乎一样，且精度还更高。</p>
 <ul>
 <li><code>f32</code>：数值范围为[$-3.4\times 10^{38}$, $3.4\times 10^{38}$]​</li>
 <li><code>f64</code>：数值范围为[$-1.8\times 10^{308}$, $1.8\times 10^{308}$]</li>
 </ul>
 <p>浮点类型相对于整数类型的麻烦之处在于：它不仅可以表达正常的数值，还可以表达不正常的数值。参见下面的代码：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">let</span> x <span class="token operator">=</span> <span class="token number">1.0</span> <span class="token operator">/</span> <span class="token number">0.0</span><span class="token punctuation">;</span>
-<span class="token keyword">let</span> y <span class="token operator">=</span> <span class="token number">0.0</span> <span class="token operator">/</span> <span class="token number">0.0</span><span class="token punctuation">;</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"x is {}, y is {}"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class=" language-language-rust"><code class="language-language-rust">let x = 1.0 / 0.0;
+let y = 0.0 / 0.0;
+println!("x is {}, y is {}", x, y);
 </code></pre>
 <p>上面代码的输出结果为<code>x is inf, y is NaN</code>，<code>inf</code>代表无穷大（infinite），<code>NaN</code>代表不是数字（Not a Number）。在标准库中，有一个<code>std::num::FpCategory</code>枚举类，表示了浮点数可能的状态：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">enum</span> FpCategory <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">// "Not a Number", often obtained by dividing by zero.</span>
-    Nan<span class="token punctuation">,</span>
-    <span class="token comment" spellcheck="true">// Positive or negative infinity.</span>
-    Infinite<span class="token punctuation">,</span>
-    <span class="token comment" spellcheck="true">// Positive or negative zero.</span>
-    Zero<span class="token punctuation">,</span>
-    <span class="token comment" spellcheck="true">// De-normalized floating point representation (less precise than `Normal`).</span>
-    Subnormal<span class="token punctuation">,</span>
-    <span class="token comment" spellcheck="true">// A regular floating point number.</span>
-    Normal<span class="token punctuation">,</span>
-<span class="token punctuation">}</span>
+<pre class=" language-language-rust"><code class="language-language-rust">enum FpCategory {
+    // "Not a Number", often obtained by dividing by zero.
+    Nan,
+    // Positive or negative infinity.
+    Infinite,
+    // Positive or negative zero.
+    Zero,
+    // De-normalized floating point representation (less precise than `Normal`).
+    Subnormal,
+    // A regular floating point number.
+    Normal,
+}
 </code></pre>
-<h4 id="原生指针"><a href="#原生指针" class="headerlink" title="原生指针"></a>原生指针</h4><p>我们一般将表示内存地址的类型称为指针。例如之前学习过的引用，它本质上就是一种非空指针，编译器会对引用进行借用检查，以保证内存安全和类型安全。原生指针主要用于<code>unsafe</code>代码块中，直接使用原生指针是不安全的，因为其可能为null，所以需要程序员自己保证安全。<code>unsafe</code>距离我们还很遥远，所以原生指针相关的只是暂且不表。</p>
-<h4 id="数组类型"><a href="#数组类型" class="headerlink" title="数组类型"></a>数组类型</h4><p>数组是Rust内建的原始集合类型 ，数组的类型签名是<code>[T:N]</code>，其中T代表数组中元素的类型，N代表数组的长度，N为编译期常量，必须在编译时确定其值。对于两个数组类型，只有元素类型和元素个数都完全相同，这两个数组才是同类型的，才可以互相赋值。数组的特点为：</p>
+<h4 id="原生指针">原生指针</h4>
+<p>我们一般将表示内存地址的类型称为指针。例如之前学习过的引用，它本质上就是一种非空指针，编译器会对引用进行借用检查，以保证内存安全和类型安全。原生指针主要用于<code>unsafe</code>代码块中，直接使用原生指针是不安全的，因为其可能为null，所以需要程序员自己保证安全。<code>unsafe</code>距离我们还很遥远，所以原生指针相关的只是暂且不表。</p>
+<h4 id="数组类型">数组类型</h4>
+<p>数组是Rust内建的原始集合类型 ，数组的类型签名是<code>[T:N]</code>，其中T代表数组中元素的类型，N代表数组的长度，N为编译期常量，必须在编译时确定其值。对于两个数组类型，只有元素类型和元素个数都完全相同，这两个数组才是同类型的，才可以互相赋值。数组的特点为：</p>
 <ul>
 <li>数组大小固定</li>
 <li>元素均为同类型</li>
 <li>默认不可变</li>
 </ul>
 <p>Rust 中，数组中的值位于中括号内的逗号分隔的列表中。下面代码中定义了类型为<code>[i32; 3]</code>的数组，该数组是固定长度的，不允许对其添加或删除元素。即使通过<code>let mut</code>关键字定义，也只能修改已存在于索引位上的元素。</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">let</span> <span class="token keyword">mut</span> arr<span class="token punctuation">:</span> <span class="token punctuation">[</span>i32<span class="token punctuation">;</span> <span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{:?}"</span><span class="token punctuation">,</span> arr<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 输出[1, 2, 3]</span>
+<pre class=" language-language-rust"><code class="language-language-rust">let mut arr: [i32; 3] = [1, 2, 3];
+println!("{:?}", arr); // 输出[1, 2, 3]
 
-arr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{:?}"</span><span class="token punctuation">,</span> arr<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 输出[4, 2, 3]</span>
+arr[0] = 4;
+println!("{:?}", arr); // 输出[4, 2, 3]
 </code></pre>
 <p>如果希望创建一个每个元素都相同的数组，可以在中括号内指定其初始值，后跟分号，再后跟数组的长度，如下所示：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">let</span> arr <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">;</span> <span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{:?}"</span><span class="token punctuation">,</span> arr<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 输出[3, 3, 3, 3, 3]</span>
+<pre class=" language-language-rust"><code class="language-language-rust">let arr = [3; 5];
+println!("{:?}", arr); // 输出[3, 3, 3, 3, 3]
 </code></pre>
 <p>Rust会在编译期尽可能地检查数组索引是否小于数组的长度，如果发现问题，会报编译错误：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">let</span> arr <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">;</span> <span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{}"</span><span class="token punctuation">,</span> arr<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// error: index out of bounds</span>
+<pre class=" language-language-rust"><code class="language-language-rust">let arr = [3; 5];
+println!("{}", arr[5]); // error: index out of bounds
 </code></pre>
 <p>但静态分析的能力有限，数组越界错误不能够全部在编译期查出来，Rust会在运行时继续检查索引是否小于数组的长度，如果超出，则会panic。</p>
 <p>一般情况下，<strong>Rust不鼓励大量使用索引操作</strong>，因为索引操作都会执行一次边界检查，所以其效率会比不执行边界检查的C/C++略低，更推荐的做法是使用迭代器。</p>
-<h4 id="范围类型"><a href="#范围类型" class="headerlink" title="范围类型"></a>范围类型</h4><p>Rust内置了范围（Range）类型，包括左闭右开和全闭两种区间，语法为<code>begin..end</code>。<code>1..5</code>表示左闭右开区间，它是<code>std::ops::Range</code>的实例；<code>1..=5</code>表示全闭区间，它是<code>std::ops::RangeInclusive</code>的实例。每个<code>Range</code>都是一个迭代器，可以直接使用<code>for</code>循环进行打印：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">for</span> x <span class="token keyword">in</span> <span class="token number">1</span><span class="token punctuation">..</span><span class="token number">5</span> <span class="token punctuation">{</span>
-    <span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{}"</span><span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<h4 id="范围类型">范围类型</h4>
+<p>Rust内置了范围（Range）类型，包括左闭右开和全闭两种区间，语法为<code>begin..end</code>。<code>1..5</code>表示左闭右开区间，它是<code>std::ops::Range</code>的实例；<code>1..=5</code>表示全闭区间，它是<code>std::ops::RangeInclusive</code>的实例。每个<code>Range</code>都是一个迭代器，可以直接使用<code>for</code>循环进行打印：</p>
+<pre class=" language-language-rust"><code class="language-language-rust">for x in 1..5 {
+	println!("{}", x);
+}
 </code></pre>
-<h4 id="切片类型"><a href="#切片类型" class="headerlink" title="切片类型"></a>切片类型</h4><p>切片类型（Slice）是对一个数组的引用片段，切片代表一个指向数组起始位置的指针和数组长度。切片有利于安全有效地访问数组的一部分，因为切片引用的是已经存在的变量。使用引用操作符<code>&amp;</code>对数组进行引用，就产生了一个切片，也可以结合范围类型对数组进行切割：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">let</span> arr <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token keyword">let</span> slice <span class="token operator">=</span> <span class="token operator">&amp;</span>arr<span class="token punctuation">;</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{:?}"</span><span class="token punctuation">,</span> slice<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 输出：[1, 2, 3, 4, 5]</span>
-<span class="token keyword">let</span> slice <span class="token operator">=</span> <span class="token operator">&amp;</span>arr<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">..</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{:?}"</span><span class="token punctuation">,</span> slice<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 输出：[3, 4]</span>
+<h4 id="切片类型">切片类型</h4>
+<p>切片类型（Slice）是对一个数组的引用片段，切片代表一个指向数组起始位置的指针和数组长度。切片有利于安全有效地访问数组的一部分，因为切片引用的是已经存在的变量。使用引用操作符<code>&amp;</code>对数组进行引用，就产生了一个切片，也可以结合范围类型对数组进行切割：</p>
+<pre class=" language-language-rust"><code class="language-language-rust">let arr = [1, 2, 3, 4, 5];
+let slice = &arr;
+println!("{:?}", slice); // 输出：[1, 2, 3, 4, 5]
+let slice = &arr[2..4];
+println!("{:?}", slice); // 输出：[3, 4]
 </code></pre>
 <p>对于数组<code>[T;N]</code>，其借用指针的类型是<code>&amp;[T;N]</code>，但其切片的类型是<code>&amp;[T]</code>。<code>&amp;[T;N]</code>占用的空间大小和普通引用相同，而<code>&amp;[T]</code>占用的空间大小是普通引用的两倍：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"&amp;i32 size is {}"</span><span class="token punctuation">,</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>mem<span class="token punctuation">:</span><span class="token punctuation">:</span>size_of<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">&lt;</span><span class="token operator">&amp;</span>i32<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 输出：&amp;i32 size is 8</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"&amp;[i32; 3] size is {}"</span><span class="token punctuation">,</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>mem<span class="token punctuation">:</span><span class="token punctuation">:</span>size_of<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">&lt;</span><span class="token operator">&amp;</span><span class="token punctuation">[</span>i32<span class="token punctuation">;</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 输出：&amp;[i32; 3] size is 8</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"&amp;[i32] size is {}"</span><span class="token punctuation">,</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>mem<span class="token punctuation">:</span><span class="token punctuation">:</span>size_of<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">&lt;</span><span class="token operator">&amp;</span><span class="token punctuation">[</span>i32<span class="token punctuation">]</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 输出：&amp;[i32] size is 16</span>
+<pre class=" language-language-rust"><code class="language-language-rust">println!("&i32 size is {}", std::mem::size_of::<&i32>()); // 输出：&i32 size is 8
+println!("&[i32; 3] size is {}", std::mem::size_of::<&[i32; 3]>()); // 输出：&[i32; 3] size is 8
+println!("&[i32] size is {}", std::mem::size_of::<&[i32]>()); // 输出：&[i32] size is 16
 </code></pre>
 <p>可以看到，数组切片的大小的确是普通引用的两倍，因为数组切片不止包含一个指向数组的指针，切片本身还含带长度信息。因此，切片还有一个非常形象的名字：胖指针（fat pointer）。胖指针的设计，避免了数组类型作为参数传递时自动退化为裸指针类型，丢失了长度信息的问题，保证了类型安全。</p>
-<h4 id="字符串类型"><a href="#字符串类型" class="headerlink" title="字符串类型"></a>字符串类型</h4><p>出于内存安全的考虑，Rust提供了两种字符串类型：一种是固定长度字符串，不可以随便更改其长度，就是<code>str</code>字符串；另一种是可增长字符串，可以随便改变其长度，就是<code>String</code>字符串。</p>
+<h4 id="字符串类型">字符串类型</h4>
+<p>出于内存安全的考虑，Rust提供了两种字符串类型：一种是固定长度字符串，不可以随便更改其长度，就是<code>str</code>字符串；另一种是可增长字符串，可以随便改变其长度，就是<code>String</code>字符串。</p>
 <p>说到<code>str</code>，就不得不提到一个概念，动态大小类型（Dynamic Sized Type，DST），是指在编译阶段无法确定占用空间大小的类型。为了安全，指向DST的指针一般是胖指针。<code>str</code>就是DST类型，我们不能在栈上声明一个不定长大小的变量示例，也不能用它作为函数的参数和返回值。但是，<code>&amp;str</code>的大小是确定的，因此，<code>&amp;str</code>类型可以用作变量实例、函数参数和返回值。<code>&amp;str</code>又被称作字符串切片类型，平时对字符串常量的绑定也是获得的其切片：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">let</span> name<span class="token punctuation">:</span> <span class="token operator">&amp;</span>str <span class="token operator">=</span> <span class="token string">"jack"</span><span class="token punctuation">;</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{}"</span><span class="token punctuation">,</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 输出：jack</span>
+<pre class=" language-language-rust"><code class="language-language-rust">let name: &str = "jack";
+println!("{}", name); // 输出：jack
 </code></pre>
 <p>Rust的字符串内部默认使用<code>utf-8</code>编码格式，而内置的<code>char</code>类型是4字节的unicode，所以Rust里面的字符串不能视为<code>char</code>类型的数组，而更接近<code>u8</code>类型的数组。这样设计的缺点是不能支持<code>O(1)</code>复杂度的索引操作，它的复杂度是<code>O(n)</code>，因为<code>utf-8</code>是变长编码，如果不从头开始过一遍，根本不知道第n个字符的地址在什么地方。</p>
-<h4 id="never类型"><a href="#never类型" class="headerlink" title="never类型"></a>never类型</h4><p>Rust提供了一种特殊数据类型，never类型，用<code>!</code>表示，代表永远不可能有返回值的计算类型，比如线程退出的时候，就不可能有返回值。Rust是一个类型安全的语言，所以也需要将这种情况纳入类型系统中进行统一管理。见下面的代码：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">let</span> num <span class="token operator">=</span> <span class="token function">Some</span><span class="token punctuation">(</span><span class="token number">42</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">let</span> num <span class="token operator">=</span> <span class="token keyword">match</span> num <span class="token punctuation">{</span>
-    <span class="token function">Some</span><span class="token punctuation">(</span>num<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> num<span class="token punctuation">,</span>
-    None <span class="token operator">=</span><span class="token operator">></span> <span class="token function">panic!</span><span class="token punctuation">(</span><span class="token string">"Nothing!"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{}"</span><span class="token punctuation">,</span> num<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 输出：42</span>
+<h4 id="never类型">never类型</h4>
+<p>Rust提供了一种特殊数据类型，never类型，用<code>!</code>表示，代表永远不可能有返回值的计算类型，比如线程退出的时候，就不可能有返回值。Rust是一个类型安全的语言，所以也需要将这种情况纳入类型系统中进行统一管理。见下面的代码：</p>
+<pre class=" language-language-rust"><code class="language-language-rust">let num = Some(42);
+let num = match num {
+	Some(num) => num,
+	None => panic!("Nothing!"),
+};
+println!("{}", num); // 输出：42
 </code></pre>
 <p>上面的代码中使用了一种当下还没学到的语法，不过不必在意，只需知道<code>match</code>表达式要求所有的分支都必须返回相同的类型，而<code>num</code>是<code>i32</code>类型，<code>panic!</code>宏会返回<code>!</code>类型，但这里没有报错，是因为never类型是可以强制转换为其他任何类型的。</p>
-<h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><p>为了防止隐藏的bug，Rust希望类型转换时要显式地标记出来，类型转换使用关键字<code>as</code>。</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">let</span> a<span class="token punctuation">:</span> i8 <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
-<span class="token keyword">let</span> b<span class="token punctuation">:</span> i16 <span class="token operator">=</span> a<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// error[E0308]: mismatched types</span>
-<span class="token keyword">let</span> b<span class="token punctuation">:</span> i16 <span class="token operator">=</span> a <span class="token keyword">as</span> i16<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 正确写法</span>
+<h3 id="类型转换">类型转换</h3>
+<p>为了防止隐藏的bug，Rust希望类型转换时要显式地标记出来，类型转换使用关键字<code>as</code>。</p>
+<pre class=" language-language-rust"><code class="language-language-rust">let a: i8 = 10;
+let b: i16 = a; // error[E0308]: mismatched types
+let b: i16 = a as i16; // 正确写法
 </code></pre>
 <p>注意，<code>as</code>关键字也不是随便可以用的，它只允许编译器认为合理的类型转换。对于表达式<code>e as U</code>，下图中是所允许的类型转换。</p>
-<p><img src="../images/10.png"></p>
-<h3 id="复合数据类型"><a href="#复合数据类型" class="headerlink" title="复合数据类型"></a>复合数据类型</h3><p>Rust提供了3种常用的复合数据类型，且都是异构数据类型，即可以使用它们将多种类型构建为统一的数据类型：</p>
+<p><img src="../images/10.png" alt=""></p>
+<h3 id="复合数据类型">复合数据类型</h3>
+<p>Rust提供了3种常用的复合数据类型，且都是异构数据类型，即可以使用它们将多种类型构建为统一的数据类型：</p>
 <ul>
 <li>元组（Tuple）</li>
 <li>结构体（Struct）</li>
 <li>枚举体（Enum）</li>
 </ul>
-<h4 id="tuple"><a href="#tuple" class="headerlink" title="tuple"></a>tuple</h4><p><code>tuple</code>指的是“元组”类型，它通过圆括号包含一组表达式构成，<code>tuple</code>内的元素没有名字，<code>tuple</code>是把几个类型组合到一起的最简单的方式。访问<code>tuple</code>内部元素可以通过模式匹配或者数字索引。示例如下：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">let</span> p <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token keyword">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">let</span> q <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 只有一个元素的元组要加一个逗号以区分表达式和元组</span>
-<span class="token keyword">let</span> <span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token operator">=</span> p<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 模式匹配访问元组元素</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{}, {}"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{}, {}"</span><span class="token punctuation">,</span> p<span class="token number">.0</span><span class="token punctuation">,</span> p<span class="token number">.1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 数字索引访问元组元素</span>
+<h4 id="tuple">tuple</h4>
+<p><code>tuple</code>指的是“元组”类型，它通过圆括号包含一组表达式构成，<code>tuple</code>内的元素没有名字，<code>tuple</code>是把几个类型组合到一起的最简单的方式。访问<code>tuple</code>内部元素可以通过模式匹配或者数字索引。示例如下：</p>
+<pre class=" language-language-rust"><code class="language-language-rust">let p = (10, false);
+let q = (0,); // 只有一个元素的元组要加一个逗号以区分表达式和元组
+let (a, b) = p; // 模式匹配访问元组元素
+println!("{}, {}", a, b);
+println!("{}, {}", p.0, p.1); // 数字索引访问元组元素
 </code></pre>
 <p>元组内部也可以一个元素都没有，称为<code>unit</code>，占用0内存空间。</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{}"</span><span class="token punctuation">,</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>mem<span class="token punctuation">:</span><span class="token punctuation">:</span>size_of<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 输出：0</span>
+<pre class=" language-language-rust"><code class="language-language-rust">println!("{}", std::mem::size_of::<()>()); // 输出：0
 </code></pre>
-<h4 id="struct"><a href="#struct" class="headerlink" title="struct"></a>struct</h4><p><code>struct</code>和<code>tuple</code>的区别是它的每个元素都有自己的名字，每个元素之间采用逗号分开，类型依旧跟在冒号后面，但必须显示指定不能省略：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">struct</span> Point <span class="token punctuation">{</span>
-    x<span class="token punctuation">:</span> i32<span class="token punctuation">,</span>
-    y<span class="token punctuation">:</span> i32
-<span class="token punctuation">}</span>
+<h4 id="struct">struct</h4>
+<p><code>struct</code>和<code>tuple</code>的区别是它的每个元素都有自己的名字，每个元素之间采用逗号分开，类型依旧跟在冒号后面，但必须显示指定不能省略：</p>
+<pre class=" language-language-rust"><code class="language-language-rust">struct Point {
+    x: i32,
+    y: i32
+}
 </code></pre>
 <p><code>struct</code>类型的初始化使用<code>成员-冒号-值</code>的方式，如果有局部变量名字恰好和成员名字一致，则可以省略成员名字：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">let</span> p <span class="token operator">=</span> Point<span class="token punctuation">{</span>x<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span> y<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-<span class="token keyword">let</span> x <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
-<span class="token keyword">let</span> y <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
-<span class="token keyword">let</span> p <span class="token operator">=</span> Point<span class="token punctuation">{</span>x<span class="token punctuation">,</span> y<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<pre class=" language-language-rust"><code class="language-language-rust">let p = Point{x: 0, y: 0};
+let x = 10;
+let y = 10;
+let p = Point{x, y};
 </code></pre>
 <p>访问结构体内部的元素使用“点”加变量名的方式，也可以使用模式匹配。</p>
-<h4 id="tuple-struct"><a href="#tuple-struct" class="headerlink" title="tuple struct"></a>tuple struct</h4><p><code>tuple</code>本身和其元素都没有名字，<code>struct</code>本身和其元素都有名字，<code>tuple struct</code>本身有名字，但其元素没有名字：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">struct</span> <span class="token function">Color</span><span class="token punctuation">(</span>i32<span class="token punctuation">,</span> i32<span class="token punctuation">,</span> i32<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<h4 id="tuple-struct">tuple struct</h4>
+<p><code>tuple</code>本身和其元素都没有名字，<code>struct</code>本身和其元素都有名字，<code>tuple struct</code>本身有名字，但其元素没有名字：</p>
+<pre class=" language-language-rust"><code class="language-language-rust">struct Color(i32, i32, i32);
 </code></pre>
 <p><code>tuple struct</code>有一个特殊的用法，即当它只包含一个元素的时候，就是所谓的<code>newtype idiom</code>，可以让我们很方便地在一个类型的基础上创建一个新的类型。</p>
-<h4 id="enum"><a href="#enum" class="headerlink" title="enum"></a>enum</h4><p>与C/C++中的枚举相比，Rust中的<code>enum</code>要强大得多，它可以为每个成员指定附属的类型信息。例如：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">enum</span> Number <span class="token punctuation">{</span>
-    <span class="token function">Int</span><span class="token punctuation">(</span>i32<span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token function">Float</span><span class="token punctuation">(</span>f32<span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">}</span>
+<h4 id="enum">enum</h4>
+<p>与C/C++中的枚举相比，Rust中的<code>enum</code>要强大得多，它可以为每个成员指定附属的类型信息。例如：</p>
+<pre class=" language-language-rust"><code class="language-language-rust">enum Number {
+	Int(i32),
+	Float(f32),
+}
 </code></pre>
 <p><code>enum</code>中每个元素可以像空结构体一样，不指定它的类型；也可以像<code>tuple struct</code>一样，用圆括号加无名成员；还可以像正常结构体一样，用大括号加带名字的成员。</p>
 <p>Rust标准库中有一个极其常用的<code>enum</code>类型<code>Option&lt;T&gt;</code>，它的定义如下：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">enum</span> Option<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token punctuation">{</span>
-    None<span class="token punctuation">,</span>
-    <span class="token function">Some</span><span class="token punctuation">(</span>T<span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">}</span>
+<pre class=" language-language-rust"><code class="language-language-rust">enum Option<T> {
+	None,
+	Some(T),
+}
 </code></pre>
 <p>其中T代表的是类型，这是一种泛型的写法。<code>Option&lt;T&gt;</code>的含义是“要么存在，要么不存在”，可以有效提升程序的健壮性。</p>
-<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><ul>
+<h3 id="参考文献">参考文献</h3>
+<ul>
 <li>《Rust编程之道》张汉东</li>
 <li>《深入浅出Rust》范长春</li>
 </ul>
@@ -759,30 +779,29 @@ arr<span class="token punctuation">[</span><span class="token number">0</span><s
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/posts/879d15dc.html">
+                <a href="/posts/5c979c5.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Rust学习笔记#3：类型">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Rust学习笔记#4：语句和表达式">
                         
-                        <span class="card-title">Rust学习笔记#3：类型</span>
+                        <span class="card-title">Rust学习笔记#4：语句和表达式</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            介绍基本和复合数据类型的概念
+                            介绍语句和表达式的概念
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-16
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-17
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -795,7 +814,6 @@ arr<span class="token punctuation">[</span><span class="token number">0</span><s
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -1052,7 +1070,7 @@ arr<span class="token punctuation">[</span><span class="token number">0</span><s
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">11.7k</span>
+                        class="white-color">16.7k</span>
             
             
             

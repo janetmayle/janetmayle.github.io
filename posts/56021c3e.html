@@ -394,16 +394,18 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="为什么选择Rust"><a href="#为什么选择Rust" class="headerlink" title="为什么选择Rust"></a>为什么选择Rust</h3><p>这个世界上的编程语言不计其数，仅在 <a target="_blank" rel="noopener" href="https://www.tiobe.com/tiobe-index/">TIOBE</a>（开发语言排行榜）上被纳入统计范围的就有273种之多，下图是当下最流行的前20种编程语言。</p>
-<p><img src="../images/1.png"></p>
+                <h3 id="为什么选择Rust">为什么选择Rust</h3>
+<p>这个世界上的编程语言不计其数，仅在 <a target="_blank" rel="noopener" href="https://www.tiobe.com/tiobe-index/">TIOBE</a>（开发语言排行榜）上被纳入统计范围的就有273种之多，下图是当下最流行的前20种编程语言。</p>
+<p><img src="../images/1.png" alt=""></p>
 <p>这些优秀的编程语言往往都有自己的绝活，例如C性能非常高，Java便于抽象擅长组织大型程序，Python适合小巧的脚本，等等。但同样，它们也并非完美，性能高的C容易产生段错误（segfault，由访问不属于本程序拥有的内存所造成的崩溃，例如空指针解引用等），擅长抽象的Java需要垃圾回收（GC），上手快的Python解释执行速度较慢。所以，编程语言的设计和发展仍有进步的空间，而Rust就是近年来涌现的新一代的综合各大编程语言优点的集大成者。</p>
 <p>Rust的设计者是这样定位这门语言的：</p>
 <blockquote>
-<p> Rust is a system’s programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety.</p>
+<p>Rust is a system’s programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety.</p>
 </blockquote>
 <p>Rust的突出优势可以总结为以下三点（无须看懂，知道Rust很厉害就完事了）：</p>
 <ul>
-<li>内存安全：Rust最重要的特点就是可以提供内存安全保证，而且没有额外的性能损失。保证内存安全即不会出现内存访问错误，为此，Rust建立了严格的内存安全管理模型：<ul>
+<li>内存安全：Rust最重要的特点就是可以提供内存安全保证，而且没有额外的性能损失。保证内存安全即不会出现内存访问错误，为此，Rust建立了严格的内存安全管理模型：
+<ul>
 <li>所有权系统：每个被分配的内存都有一个独占其所有权的指针，只有当该指针被销毁时，其对应的内存才能随之被释放。所有权系统借鉴了C++的RAII机制，这是Rust无GC但是可以安全管理内存的基石。</li>
 <li>借用和生命周期：每个变量都有其生命周期，一旦超出生命周期，变量就会被自动释放。如果是借用，则可以通过标记生命周期参数供编译器检查的方式，防止出现悬垂指针，也就是释放后使用的情况。</li>
 </ul>
@@ -413,13 +415,15 @@
 </ul>
 <p>Rust以其独特的魅力已经连续多年荣膺StackOverflow网站最受程序员欢迎的编程语言，虽然目前其在TIOBE榜单上还未入前列，但未来互联网必定更加注重安全和高性能，所以应运而生的Rust必将大有可为。</p>
 <p>在学习Rust的语法之前，我们先一起来了解一下Rust的周边知识。</p>
-<h3 id="Rust常用网站"><a href="#Rust常用网站" class="headerlink" title="Rust常用网站"></a>Rust常用网站</h3><ul>
-<li>官方网站：点击<a target="_blank" rel="noopener" href="https://www.rust-lang.org/">这里</a>。在这里你可以找到官方教材TRPL等许多重要内容，所以探索一下此网站大有裨益。</li>
+<h3 id="Rust常用网站">Rust常用网站</h3>
+<ul>
+<li>官方网站：点击<a target="_blank" rel="noopener" href="https://www.rust-lang.org">这里</a>。在这里你可以找到官方教材TRPL等许多重要内容，所以探索一下此网站大有裨益。</li>
 <li>编译器是开源的：点击<a target="_blank" rel="noopener" href="https://github.com/rust-lang/rust">这里</a>。对Rust语言来说，开源社区也是语言的一部分，这是和其他商用语言的区别所在。</li>
 <li>语言设计和相关讨论：点击<a target="_blank" rel="noopener" href="https://github.com/rust-lang/rfcs">这里</a>。Rust每增加一个重要语言特性，都会经过标准的RFC流程，RFC文档是涵盖了语言特性的设计意图、详细设计、优缺点的完整技术方案。这对于我们学习者来说，可以通过阅读RFC来深入了解某个语言特性的来龙去脉，这将是一个极其宝贵的学习资源，有助于了解某个特性背后的原理。</li>
 <li>官方开源仓库：点击<a target="_blank" rel="noopener" href="https://crates.io/">这里</a>。该网站储存了Rust社区热门的开源库。</li>
 </ul>
-<h3 id="版本和发布策略"><a href="#版本和发布策略" class="headerlink" title="版本和发布策略"></a>版本和发布策略</h3><p>Rust编译器的版本号采用了“语义化版本号”（Semantic Versioning）的方案，版本格式为：主版本号.次版本号.修订号，其递增规则如下：</p>
+<h3 id="版本和发布策略">版本和发布策略</h3>
+<p>Rust编译器的版本号采用了“语义化版本号”（Semantic Versioning）的方案，版本格式为：主版本号.次版本号.修订号，其递增规则如下：</p>
 <ul>
 <li>主版本号：当做了不兼容的API修改</li>
 <li>次版本号：当做了向下兼容的功能性新增</li>
@@ -435,28 +439,29 @@
 <blockquote>
 <p>RFC -&gt; Nightly -&gt; Beta -&gt; Stable</p>
 </blockquote>
-<p>有时一些新功能确实需要一定程度上破坏兼容性，为了最大程度上减少这些变动给用户带来的影响，Rust设计组又提出一个所谓的edition方案，目前有 2015 和 2018两种edition，我们可以设置”edition=2018”来告诉编译器我们使用的版本。</p>
-<h3 id="安装开发环境"><a href="#安装开发环境" class="headerlink" title="安装开发环境"></a>安装开发环境</h3><p>根据官网的<a target="_blank" rel="noopener" href="https://www.rust-lang.org/tools/install">推荐</a>，可以使用一个叫rustup的工具安装Rust相关的一整套工具链。命令如下：</p>
-<pre class=" language-bash"><code class="language-bash">curl --proto <span class="token string">'=https'</span> --tlsv1.2 -sSf https://sh.rustup.rs <span class="token operator">|</span> sh
+<p>有时一些新功能确实需要一定程度上破坏兼容性，为了最大程度上减少这些变动给用户带来的影响，Rust设计组又提出一个所谓的edition方案，目前有 2015 和 2018两种edition，我们可以设置&quot;edition=2018&quot;来告诉编译器我们使用的版本。</p>
+<h3 id="安装开发环境">安装开发环境</h3>
+<p>根据官网的<a target="_blank" rel="noopener" href="https://www.rust-lang.org/tools/install">推荐</a>，可以使用一个叫rustup的工具安装Rust相关的一整套工具链。命令如下：</p>
+<pre class=" language-language-bash"><code class="language-language-bash">curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 </code></pre>
 <p>我们可以使用rustup工具管理工具链：</p>
-<pre class=" language-bash"><code class="language-bash">// 更新rustup本身
+<pre class=" language-language-bash"><code class="language-language-bash">// 更新rustup本身
 rustup self update
 // 更新工具链
 rustup update
 </code></pre>
 <p>也可以用它在<code>stable/beta/nightly</code>三种版本中轻松切换：</p>
-<pre class=" language-bash"><code class="language-bash">// 安装nightly版本的工具链
-rustup <span class="token function">install</span> nightly
+<pre class=" language-language-bash"><code class="language-language-bash">// 安装nightly版本的工具链
+rustup install nightly
 // 设置默认工具链是nightly版本
 rustup default nightly
 </code></pre>
 <p>若执行下列命令能够正确输出版本号则说明Rust安装成功：</p>
-<pre class=" language-bash"><code class="language-bash">rustc --version
+<pre class=" language-language-bash"><code class="language-language-bash">rustc --version
 </code></pre>
 <p>若安装不成功，请尝试将<code>~/.cargo/bin</code>加入PATH环境变量中去。</p>
 <p>在<code>~/.cargo/bin</code>目录下可以找到Rust的一些常用工具，如下图所示：</p>
-<p><img src="../images/2.png"></p>
+<p><img src="../images/2.png" alt=""></p>
 <ul>
 <li>cargo：Rust的包管理器，类似于Python的pip、Node.js的npm。但cargo不仅局限于包管理，它还为Rust生态系统提供了标准的工作流，能够管理整个工作流程，从创建项目、运行单元测试和基准测试，到构建发布链接库，再到运行可执行文件，等等。</li>
 <li>rustc：Rust的编译器，负责将Rust源代码编译为可执行文件或其他库文件。rustc使用Rust语言开发，其输出的错误信息非常友好和详尽，远超你见过的任何一款编译器。</li>
@@ -466,16 +471,18 @@ rustup default nightly
 <li>rust-gdb和rust-lldb：调试器。</li>
 </ul>
 <p>对于IDE，Rust尚没有专属的IDE，我推荐Clion+Rust插件，已经非常好用了。</p>
-<h3 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h3><p>配置好了开发环境，如何能不写一个充满仪式感的Hello World程序呢？来，新建一个文件，命名为<code>hello_world.rs</code>，内容如下：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token comment" spellcheck="true">// hello_world.rs</span>
-<span class="token keyword">fn</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">let</span> s <span class="token operator">=</span> <span class="token string">"hello world!"</span><span class="token punctuation">;</span>
-    <span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{}"</span><span class="token punctuation">,</span> s<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<h3 id="Hello-World">Hello World</h3>
+<p>配置好了开发环境，如何能不写一个充满仪式感的Hello World程序呢？来，新建一个文件，命名为<code>hello_world.rs</code>，内容如下：</p>
+<pre class=" language-language-rust"><code class="language-language-rust">// hello_world.rs
+fn main() {
+	let s = "hello world!";
+	println!("{}", s);
+}
 </code></pre>
 <p>然后使用rustc编译它，可看到当前文件夹下生成了一个名为<code>hello_world</code>的可执行程序：</p>
-<p><img src="../images/3.png"></p>
-<h3 id="Rust的设计哲学"><a href="#Rust的设计哲学" class="headerlink" title="Rust的设计哲学"></a>Rust的设计哲学</h3><p>Rust是具有混合范式的“面向过程”式的编程语言，它包含了面向对象、函数式和泛型三种编程范式，其设计哲学如下：</p>
+<p><img src="../images/3.png" alt=""></p>
+<h3 id="Rust的设计哲学">Rust的设计哲学</h3>
+<p>Rust是具有混合范式的“面向过程”式的编程语言，它包含了面向对象、函数式和泛型三种编程范式，其设计哲学如下：</p>
 <ul>
 <li>内存安全为第一准则</li>
 <li>注重并发安全，避免数据竞争</li>
@@ -486,7 +493,8 @@ rustup default nightly
 <li>现代化语言特性</li>
 <li>拥抱开源社区</li>
 </ul>
-<h3 id="学习Rust的建议"><a href="#学习Rust的建议" class="headerlink" title="学习Rust的建议"></a>学习Rust的建议</h3><p>这些建议来自于张汉东老师，我认为还是十分中肯的，所以列在此处和大家分享。</p>
+<h3 id="学习Rust的建议">学习Rust的建议</h3>
+<p>这些建议来自于张汉东老师，我认为还是十分中肯的，所以列在此处和大家分享。</p>
 <ul>
 <li>从整体出发，不要让自己陷入到细节中去。先有高屋建瓴的结构性的认知，再深入语法细节，有利于建立知识网络，可以事半功倍。</li>
 <li>抛弃一次性学会的念头，分层次递进式学习。</li>
@@ -496,7 +504,8 @@ rustup default nightly
 <li>时刻把握Rust设计哲学。我们要从Rust的设计哲学去思考某种特性这样设计的原因。</li>
 <li>有意识地构建Rust的心智模型，有意识地训练以Rust的方法思考代码编写的方式。</li>
 </ul>
-<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><ul>
+<h3 id="参考文献">参考文献</h3>
+<ul>
 <li>《Rust编程之道》张汉东</li>
 <li>《深入浅出Rust》范长春</li>
 </ul>
@@ -900,7 +909,7 @@ rustup default nightly
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">11.7k</span>
+                        class="white-color">16.7k</span>
             
             
             

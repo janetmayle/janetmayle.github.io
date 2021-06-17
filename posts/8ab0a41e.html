@@ -399,7 +399,8 @@
 <blockquote>
 <p>猜谜游戏：程序将会随机生成一个 1 到 100 之间的随机整数。接着它会请玩家猜一个数并输入，然后提示猜测是大了还是小了。如果猜错了，会请玩家继续猜测；如果猜对了，它会打印祝贺信息并退出。</p>
 </blockquote>
-<h3 id="Rust如何管理项目"><a href="#Rust如何管理项目" class="headerlink" title="Rust如何管理项目"></a>Rust如何管理项目</h3><p>并不是所有的代码都像<code>hello_world.rs</code>一样，一个文件就可以搞定。一个项目往往具有复杂的代码，我们需要一种机制来管理这种复杂性，将一个项目切分成若干小部分，每个部分再进行切分，层层抽象，直到达到人脑可以处理的规模。每种编程语言都有这样的机制，例如Java的package机制，Rust也不例外。</p>
+<h3 id="Rust如何管理项目">Rust如何管理项目</h3>
+<p>并不是所有的代码都像<code>hello_world.rs</code>一样，一个文件就可以搞定。一个项目往往具有复杂的代码，我们需要一种机制来管理这种复杂性，将一个项目切分成若干小部分，每个部分再进行切分，层层抽象，直到达到人脑可以处理的规模。每种编程语言都有这样的机制，例如Java的package机制，Rust也不例外。</p>
 <p>Rust用了两个概念来管理项目：一个是crate（项目），一个是mod（模块）。模块（mod）是用于在项目（crate）内部进行分层和封装的机制，模块内部可以包含模块。</p>
 <ul>
 <li>crate：可以简单理解为一个项目，crate是Rust中的独立编译单元（compile unit），每个crate对应生成一个库或者可执行文件。作为对比，我们比较熟悉的C语言中，一个单独的.c文件和其所有的include文件组成一个编译单元，每个.c生成一个.o，然后将这些.o链接起来生成可执行文件。</li>
@@ -416,109 +417,120 @@
 <li>独立的一个rs文件就是一个模块，文件名即是模块名。</li>
 <li>一个文件夹也可以视为一个模块，文件夹内部要有一个<code>mod.rs</code>文件，这个文件是这个模块的入口。注意必须要在这个<code>mod.rs</code>中声明其子模块，否则子模块无法被当成这个项目的源码进行编译；另外，也需要在该文件夹所在的mod的入口文件中声明该文件夹。</li>
 </ul>
-<h3 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h3><p>cargo不仅是Rust的包管理器，还可以用于创建项目。使用下列命令可以创建一个名为<code>guessing_game</code>的项目：</p>
-<pre class=" language-bash"><code class="language-bash">cargo new guessing_game --bin
+<h3 id="新建项目">新建项目</h3>
+<p>cargo不仅是Rust的包管理器，还可以用于创建项目。使用下列命令可以创建一个名为<code>guessing_game</code>的项目：</p>
+<pre class=" language-language-bash"><code class="language-language-bash">cargo new guessing_game --bin
 </code></pre>
 <p>注意，后面的<code>--bin</code>意味着我们希望项目生成的是可执行程序，如果希望是library，则可以使用<code>--lib</code>选项。</p>
 <p>以上为在命令行中手工创建项目，在Clion中可以点击<code>File-&gt;New Project</code>后如下图填写，然后点击<code>Create</code>按钮：</p>
-<p><img src="../images/4.png"></p>
-<h3 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h3><p>我们可以使用<code>tree</code>命令或者直接在Clion中查看当前的文件夹结构，如下图所示：</p>
-<p><img src="../images/5.png"></p>
+<p><img src="../images/4.png" alt=""></p>
+<h3 id="项目结构">项目结构</h3>
+<p>我们可以使用<code>tree</code>命令或者直接在Clion中查看当前的文件夹结构，如下图所示：</p>
+<p><img src="../images/5.png" alt=""></p>
 <ul>
 <li>src/main.rs：这是cargo自动生成的rs文件。还记得前面讲的crate和mod的概念吗？在这个项目中，<code>guessing_game</code>是crate，<code>src</code>文件夹是mod，<code>main.rs</code>是<code>src</code>mod的入口（相应的，<code>lib.rs</code>是library类型crate的入口）。我们可以在<code>src</code>mod中创建子模块，但注意，这些子模块都要在<code>main.rs</code>中声明，否则无法参与编译。</li>
 <li>.gitignore：这是git忽略文件，不懂其作用的同学可以自行搜索。这里重点要说的是通过<code>cargo new</code>创建的项目天然就是一个git项目，这也印证了Rust对开源的拥护。</li>
-<li>Cargo.toml：这是项目管理配置文件。TOML是一种非常简洁好用的配置文件格式，TOML是<code>Tom&#39;s Obvious, Minimal Language</code>的首字母缩写，这里的Tom是Github的联合创始人之一，感兴趣的同学可以进一步自行了解TOML配置文件的写法。</li>
+<li>Cargo.toml：这是项目管理配置文件。TOML是一种非常简洁好用的配置文件格式，TOML是<code>Tom's Obvious, Minimal Language</code>的首字母缩写，这里的Tom是Github的联合创始人之一，感兴趣的同学可以进一步自行了解TOML配置文件的写法。</li>
 <li>Cargo.lock：该文件包含项目依赖项的确切信息，由Cargo维护，我们无须关心它。</li>
 </ul>
-<h3 id="编译执行"><a href="#编译执行" class="headerlink" title="编译执行"></a>编译执行</h3><p>在<code>src/main.rs</code>里cargo已经自动生成了输出<code>Hello, world!</code>的代码，我们来运行一下它看能否正常输出。</p>
+<h3 id="编译执行">编译执行</h3>
+<p>在<code>src/main.rs</code>里cargo已经自动生成了输出<code>Hello, world!</code>的代码，我们来运行一下它看能否正常输出。</p>
 <p>插一句题外话，在你日后漫长的Rust编码生涯中，你会发现，你将在处理编译错误上耗费大量的时间。还记得吗，Rust 的一大特色是保证内存安全，这保证了Rust代码只要运行起来就几乎不会发生内存错误，这么诱人的效果的背后的代价就是，我们要在编码时付出额外的努力。Rust为了保证内存安全设计了一套复杂的规则，这导致我们的代码一不留神就会编译不过。所以，在你日后经常用的一个操作就是检查能否编译通过，而不是直接编译，因为直接编译还要进行代码优化等操作所以会相对费时。可以使用下列命令检查编译错误：</p>
-<pre class=" language-bash"><code class="language-bash">cargo check
+<pre class=" language-language-bash"><code class="language-language-bash">cargo check
 </code></pre>
 <p>在Clion中需要新加一个Configuration来执行<code>cargo check</code>命令，如下图所示：</p>
-<p><img src="../images/6.png"></p>
+<p><img src="../images/6.png" alt=""></p>
 <p>确保<code>cargo check</code>通过后，可以执行<code>cargo build</code>来执行编译。编译后会产生一个<code>target</code>文件夹，在<code>target/debug</code>下会有一个和crate同名的可执行文件。但一般为了方便，可以直接执行<code>cargo run</code>，这条命令等价于先编译后执行。下图是执行<code>cargo run</code>后Clion的控制台输出：</p>
-<p><img src="../images/7.png"></p>
-<h3 id="猜谜游戏"><a href="#猜谜游戏" class="headerlink" title="猜谜游戏"></a>猜谜游戏</h3><p>在完成了项目搭建后，接下来就要开始猜谜游戏的代码编写了，我将它们分成六部分：创建变量、输入、输出、错误处理、随机数生成、完整代码。</p>
-<h4 id="创建变量"><a href="#创建变量" class="headerlink" title="创建变量"></a>创建变量</h4><p>使用<code>let</code>语句创建变量，需要注意的是，在Rust中，变量默认是不可变的，可以在变量名前使用<code>mut</code>来使得变量可变：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 不可变</span>
-<span class="token keyword">let</span> <span class="token keyword">mut</span> b <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 可变</span>
+<p><img src="../images/7.png" alt=""></p>
+<h3 id="猜谜游戏">猜谜游戏</h3>
+<p>在完成了项目搭建后，接下来就要开始猜谜游戏的代码编写了，我将它们分成六部分：创建变量、输入、输出、错误处理、随机数生成、完整代码。</p>
+<h4 id="创建变量">创建变量</h4>
+<p>使用<code>let</code>语句创建变量，需要注意的是，在Rust中，变量默认是不可变的，可以在变量名前使用<code>mut</code>来使得变量可变：</p>
+<pre class=" language-language-rust"><code class="language-language-rust">let a = 5; // 不可变
+let mut b = 10; // 可变
 </code></pre>
 <p>在上面的<code>let</code>语句中，我们并没有显示声明变量的类型，但这并不代表Rust是动态类型的，Rust仍然是静态类型的，只不过Rust有一个可以通过上下文推断类型的强大编译器。</p>
-<h4 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h4><p>我们早已在<code>hello_world.rs</code>中见识过了最基本的输出方式：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"Hello, world!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<h4 id="输出">输出</h4>
+<p>我们早已在<code>hello_world.rs</code>中见识过了最基本的输出方式：</p>
+<pre class=" language-language-rust"><code class="language-language-rust">println!("Hello, world!");
 </code></pre>
 <p>需要注意的是，这里的<code>println!</code>是一个宏，而非一个函数，println后面的感叹号就是宏的标志。Rust中的宏与C/C++中的宏是完全不一样的东西，简单说，可以把它理解为一种安全版的编译期语法扩展。这里之所以使用输出宏而非函数，是因为标准输出宏可以完成编译期格式检查，更加安全。</p>
 <p>如果需要输出某个变量的值，可以使用占位符<code>&#123;&#125;</code>，例如：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">let</span> x <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token keyword">let</span> y <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"x = {} and y = {}"</span><span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class=" language-language-rust"><code class="language-language-rust">let x = 0;
+let y = 10;
+println!("x = {} and y = {}", x, y);
 </code></pre>
 <p>其输出结果为：</p>
-<pre class=" language-bash"><code class="language-bash">x <span class="token operator">=</span> 0 and y <span class="token operator">=</span> 10
+<pre class=" language-language-bash"><code class="language-language-bash">x = 0 and y = 10
 </code></pre>
-<h4 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h4><p>为了从控制台中获取用户的输入，需要使用标准库<code>std::io</code>。使用<code>use</code>语句将该库引入当前作用域：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">use</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>io<span class="token punctuation">;</span>
+<h4 id="输入">输入</h4>
+<p>为了从控制台中获取用户的输入，需要使用标准库<code>std::io</code>。使用<code>use</code>语句将该库引入当前作用域：</p>
+<pre class=" language-language-rust"><code class="language-language-rust">use std::io;
 </code></pre>
 <p>我们可以使用<code>io</code>库中的函数<code>stdin</code>：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">let</span> <span class="token keyword">mut</span> guess <span class="token operator">=</span> String<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 创建一个字符串类型的可变变量</span>
-io<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">stdin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">read_line</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> guess<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">expect</span><span class="token punctuation">(</span><span class="token string">"Failed to read line"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class=" language-language-rust"><code class="language-language-rust">let mut guess = String::new(); // 创建一个字符串类型的可变变量
+io::stdin().read_line(&mut guess).expect("Failed to read line");
 </code></pre>
 <p><code>stdin</code>函数返回一个<code>std::io::Stdin</code>的实例，这代表终端标准输入句柄的类型。然后调用<code>read_line</code>方法，可以从标准输入中读取一行并存入到<code>guess</code>变量中去。<code>&amp;</code>表示这是一个引用，这是一个复杂的特性，我们现在无须了解它。</p>
 <p>读取用户输入后，我们需要判断用户是否正确输入了数字。<code>String</code>类型带有处理字符串处理的一些方法：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">let</span> guess<span class="token punctuation">:</span> u32 <span class="token operator">=</span> guess<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">expect</span><span class="token punctuation">(</span><span class="token string">"Please type a number!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class=" language-language-rust"><code class="language-language-rust">let guess: u32 = guess.trim().parse().expect("Please type a number!");
 </code></pre>
 <p>字符串的 <code>parse </code>方法将字符串解析成数字。因为这个方法可以解析多种数字类型，因此需要告诉 Rust 具体的数字类型，这里通过 <code>let guess: u32</code> 指定。<code>guess </code>后的冒号<code>:</code>告诉 Rust 我们指定了变量的类型。Rust 有一些内建的数字类型，u32 是一个无符号的 32 位整型。<code>trim</code>方法用于消除回车空格等符号。</p>
-<h4 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h4><p>上一小节代码中还有一个<code>expect</code>没有分析，而这就涉及到Rust中的错误处理机制了。<code>read_line</code>的返回值类型是<code>io::Result</code>，它是<code>Result</code>类型在<code>io</code>模块的特化版本。<code>Result</code>是枚举类型，其成员为<code>Ok</code>和<code>Err</code>，<code>Ok</code> 成员表示操作成功，内部包含成功时产生的值。<code>Err </code>成员则意味着操作失败，内部包含失败的前因后果。</p>
+<h4 id="错误处理">错误处理</h4>
+<p>上一小节代码中还有一个<code>expect</code>没有分析，而这就涉及到Rust中的错误处理机制了。<code>read_line</code>的返回值类型是<code>io::Result</code>，它是<code>Result</code>类型在<code>io</code>模块的特化版本。<code>Result</code>是枚举类型，其成员为<code>Ok</code>和<code>Err</code>，<code>Ok</code> 成员表示操作成功，内部包含成功时产生的值。<code>Err </code>成员则意味着操作失败，内部包含失败的前因后果。</p>
 <p><code>Result</code>类型的作用是编码错误处理信息。<code>Result </code>类型像其他类型一样，拥有定义于其上的方法。<code>io::Result</code>的实例拥有<code>expect</code>方法。如果 <code>io::Result </code>实例的值是 <code>Err</code>，<code>expect</code> 会导致程序崩溃，并打印参数传递给 <code>expect </code>的信息。如果<code>io::Result</code>实例的值是 <code>Ok</code>，<code>expect </code>会获取 <code>Ok </code>中的值并返回。在本例中，这个值是用户输入到标准输入中的字节数。</p>
-<h4 id="随机数生成"><a href="#随机数生成" class="headerlink" title="随机数生成"></a>随机数生成</h4><p>猜谜游戏需要能够自动生成随机数。Rust标准库中并未包含随机数功能，但我们可以通过引入外部crate来获得随机数功能。还记得Rust的官方开源仓库吗，那里可是有很多宝贝的。打开<code>https://crates.io/</code>，在搜索框中键入<code>rand</code>来搜索具有随机数功能的crate，出来的第一个结果就是我们需要的crate。</p>
-<p><img src="../images/8.png"></p>
+<h4 id="随机数生成">随机数生成</h4>
+<p>猜谜游戏需要能够自动生成随机数。Rust标准库中并未包含随机数功能，但我们可以通过引入外部crate来获得随机数功能。还记得Rust的官方开源仓库吗，那里可是有很多宝贝的。打开<code>https://crates.io/</code>，在搜索框中键入<code>rand</code>来搜索具有随机数功能的crate，出来的第一个结果就是我们需要的crate。</p>
+<p><img src="../images/8.png" alt=""></p>
 <p>现在我们将这个库引入到我们的项目中。打开<code>Cargo.toml</code>，在<code>[dependencies]</code>下添加：</p>
-<pre class=" language-toml"><code class="language-toml">[dependencies]rand = "0.8.3"
+<pre class=" language-language-toml"><code class="language-language-toml">[dependencies]rand = "0.8.3"
 </code></pre>
 <p><code>[dependencies]</code> 告诉 Cargo 本项目依赖了哪些外部 crate 及其版本。</p>
 <p>下面使用<code>rand</code>库来产生随机数。首先，使用<code>use</code>语句引入<code>rand</code>，<code>use rand::Rng;</code>。然后调用下列函数产生一个1和100之间的数：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">let</span> number <span class="token operator">=</span> rand<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">thread_rng</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">gen_range</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">..</span><span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class=" language-language-rust"><code class="language-language-rust">let number = rand::thread_rng().gen_range(1..=100);
 </code></pre>
-<h4 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h4><p>猜谜游戏的完整代码如下。</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">use</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>io<span class="token punctuation">;</span>
-<span class="token keyword">use</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>cmp<span class="token punctuation">:</span><span class="token punctuation">:</span>Ordering<span class="token punctuation">;</span>
-<span class="token keyword">use</span> rand<span class="token punctuation">:</span><span class="token punctuation">:</span>Rng<span class="token punctuation">;</span>
+<h4 id="完整代码">完整代码</h4>
+<p>猜谜游戏的完整代码如下。</p>
+<pre class=" language-language-rust"><code class="language-language-rust">use std::io;
+use std::cmp::Ordering;
+use rand::Rng;
 
-<span class="token keyword">fn</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"Guess the number!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+fn main() {
+    println!("Guess the number!");
 
-    <span class="token keyword">let</span> secret_number <span class="token operator">=</span> rand<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">thread_rng</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">gen_range</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">..</span><span class="token operator">=</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    let secret_number = rand::thread_rng().gen_range(1..=100);
 
-    <span class="token keyword">loop</span> <span class="token punctuation">{</span>
-        <span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"Please input your guess."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    loop {
+        println!("Please input your guess.");
 
-        <span class="token keyword">let</span> <span class="token keyword">mut</span> guess <span class="token operator">=</span> String<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        let mut guess = String::new();
 
-        io<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">stdin</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">read_line</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> guess<span class="token punctuation">)</span>
-            <span class="token punctuation">.</span><span class="token function">expect</span><span class="token punctuation">(</span><span class="token string">"Failed to read line"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        io::stdin().read_line(&mut guess)
+            .expect("Failed to read line");
 
-        <span class="token keyword">let</span> guess<span class="token punctuation">:</span> u32 <span class="token operator">=</span> <span class="token keyword">match</span> guess<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token function">Ok</span><span class="token punctuation">(</span>num<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> num<span class="token punctuation">,</span>
-            <span class="token function">Err</span><span class="token punctuation">(</span>_<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">continue</span><span class="token punctuation">,</span>
-        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        let guess: u32 = match guess.trim().parse() {
+            Ok(num) => num,
+            Err(_) => continue,
+        };
 
-        <span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"You guessed: {}"</span><span class="token punctuation">,</span> guess<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        println!("You guessed: {}", guess);
 
-        <span class="token keyword">match</span> guess<span class="token punctuation">.</span><span class="token function">cmp</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>secret_number<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            Ordering<span class="token punctuation">:</span><span class="token punctuation">:</span>Less <span class="token operator">=</span><span class="token operator">></span> <span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"Too small!"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-            Ordering<span class="token punctuation">:</span><span class="token punctuation">:</span>Greater <span class="token operator">=</span><span class="token operator">></span> <span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"Too big!"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-            Ordering<span class="token punctuation">:</span><span class="token punctuation">:</span>Equal <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
-                <span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"You win!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                <span class="token keyword">break</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+        match guess.cmp(&secret_number) {
+            Ordering::Less => println!("Too small!"),
+            Ordering::Greater => println!("Too big!"),
+            Ordering::Equal => {
+                println!("You win!");
+                break;
+            }
+        }
+    }
+}
 </code></pre>
 <p>其中，涉及控制流操作的<code>loop</code>、<code>match</code>、<code>continue</code>、<code>break</code>等语法，大家应当能够望文生义。对于这个完整代码，大家能够阅读并大概知道每一行干了啥即可，不必纠结于语法细节。</p>
 <p>猜谜游戏运行结果如下：</p>
-<p><img src="../images/9.png"></p>
-<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><ul>
+<p><img src="../images/9.png" alt=""></p>
+<h3 id="参考文献">参考文献</h3>
+<ul>
 <li>《The Rust Programming Language》</li>
 <li>《Rust编程之道》张汉东</li>
 <li>《深入浅出Rust》范长春</li>
@@ -922,7 +934,7 @@ io<span class="token punctuation">:</span><span class="token punctuation">:</spa
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">11.7k</span>
+                        class="white-color">16.7k</span>
             
             
             
