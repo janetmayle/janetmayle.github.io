@@ -1,0 +1,1345 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="基于VMware的ArchLinux安装指南, 清和与嘉平">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>基于VMware的ArchLinux安装指南 | 清和与嘉平</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="stylesheet" href="/css/prism-duotone-light.css" type="text/css"></head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">清和与嘉平</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">清和与嘉平</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">基于VMware的ArchLinux安装指南</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Linux/">
+                                <span class="chip bg-color">Linux</span>
+                            </a>
+                        
+                            <a href="/tags/%E9%85%8D%E7%BD%AE/">
+                                <span class="chip bg-color">配置</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Linux/" class="post-category">
+                                Linux
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-06-18
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2021-06-18
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    2.5k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    10 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="下载ArchLinux镜像"><a href="#下载ArchLinux镜像" class="headerlink" title="下载ArchLinux镜像"></a>下载ArchLinux镜像</h3><p>推荐去清华大学开源软件镜像站下载最新版的ArchLinux镜像，点击<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/archlinux/iso/latest/">这里</a>，下载<strong>archlinux-xxxx-x86_64.iso</strong>。</p>
+<p><img src="../images/11.png"></p>
+<h3 id="使用VMware创建虚拟机"><a href="#使用VMware创建虚拟机" class="headerlink" title="使用VMware创建虚拟机"></a>使用VMware创建虚拟机</h3><p>接下来打开VMware，使用刚刚下载好的镜像来创建一个虚拟机：</p>
+<ul>
+<li>第一步：选择典型即可，自定义的高级部分对于新手来说目前还用不到。</li>
+</ul>
+<p><img src="../images/12.png"></p>
+<ul>
+<li>第二步：选中之前下载好的ArchLinux镜像文件</li>
+</ul>
+<p><img src="../images/13.png"></p>
+<ul>
+<li>第三步：如图所示进行选择。VMware支持对一些常见的Linux系统例如Ubuntu进行快速安装，但目前尚未支持ArchLinux，所以在“版本”选项里只能选择“其他Linux 5.x 或更高版本内核 64位”</li>
+</ul>
+<p><img src="../images/14.png"></p>
+<ul>
+<li><p>第四步：这一步给虚拟机命名和指定存储位置，按照个人喜好进行选择即可。</p>
+<p><img src="../images/15.png"></p>
+</li>
+<li><p>第五步：注意，最好将磁盘容量设置的大一些，因为使用后期如果磁盘容量不足需要扩容的话会比较麻烦。而且，我们是以“将虚拟磁盘拆分成多个文件”的方式来分配磁盘容量，因此并不会一次性从主机硬盘中切分出所有的磁盘容量，而是使用多少分配多少，所以即使这里设置的最大磁盘大小超过你主机硬盘的真实容量也没有问题。</p>
+</li>
+</ul>
+<p><img src="../images/16.png"></p>
+<ul>
+<li>第六步：自定义硬件部分的内容在以后可以随时更改，这里可以先选择默认，然后点击“完成”即可。</li>
+</ul>
+<p><img src="../images/17.png"></p>
+<h3 id="安装ArchLinux系统"><a href="#安装ArchLinux系统" class="headerlink" title="安装ArchLinux系统"></a>安装ArchLinux系统</h3><p>启动虚拟机，进入Live环境，选择第一个：</p>
+<p><img src="../images/18.png"></p>
+<p>下图是Live环境的操作页面，Live是一个可运行的系统，不用安装到硬盘，直接从介质就能启动。我们需要借助这个Live环境来完成一些硬盘分区等基本操作。</p>
+<p><img src="../images/19.png"></p>
+<h4 id="验证启动方式"><a href="#验证启动方式" class="headerlink" title="验证启动方式"></a>验证启动方式</h4><p>启动成功后就会进入命令行模式，可以在此处使用以下列出efivars目录以验证启动模式来判断主板是以何种方式引导系统的。</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">ls</span> /sys/firmware/efi/efivars
+</code></pre>
+<p>如果目录不存在，系统可能以 BIOS 模式启动，则需要使用<code>poweroff</code>命令退出Live环境，并进行如下设置：</p>
+<p><img src="../images/29.png"></p>
+<h4 id="连接网络"><a href="#连接网络" class="headerlink" title="连接网络"></a>连接网络</h4><p>首先需要连接网络，因为安装过程中需要联网下载一些包，但我们是基于虚拟机启动，所以不需要进行特殊的联网设置，直接就可以ping通百度：</p>
+<p><img src="../images/20.png"></p>
+<p>如果你无法联网，可以使用<code>poweroff</code>命令退出Live环境，然后按照下图对虚拟机进行设置：</p>
+<p><img src="../images/21.png"></p>
+<h4 id="更新系统时间"><a href="#更新系统时间" class="headerlink" title="更新系统时间"></a>更新系统时间</h4><p>因一些安全机制的要求，整个网络需要保持准确一致的时间。NTP是网络时间协议（Network Time Protocol）的简称，它可以提供高精准度的时间校正，其时间来源是国际标准时间UTC。直接输入以下命令：</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># timedatectl set-ntp true</span>
+<span class="token comment" spellcheck="true"># timedatectl status</span>
+</code></pre>
+<h4 id="硬盘分区"><a href="#硬盘分区" class="headerlink" title="硬盘分区"></a>硬盘分区</h4><h5 id="查看磁盘情况"><a href="#查看磁盘情况" class="headerlink" title="查看磁盘情况"></a>查看磁盘情况</h5><p>输入命令<code>fdisk -l</code>，找到你的要安装的硬盘，如下图中的 <code>/dev/sda</code>，可以看到其大小为1T，这就是当初在创建虚拟机时创建的虚拟硬盘，下面对这个虚拟硬盘进行分区。</p>
+<p><img src="../images/22.png"></p>
+<h5 id="硬盘分区设计"><a href="#硬盘分区设计" class="headerlink" title="硬盘分区设计"></a>硬盘分区设计</h5><table>
+<thead>
+<tr>
+<th>分区</th>
+<th>挂载点</th>
+<th>分区大小</th>
+<th>分区类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>/dev/sda1</td>
+<td>/mnt/efi</td>
+<td>512MB</td>
+<td>EFI 系统分区</td>
+</tr>
+<tr>
+<td>/dev/sda2</td>
+<td>[SWAP]</td>
+<td>8GB</td>
+<td>Linux swap (交换空间)</td>
+</tr>
+<tr>
+<td>/dev/sda3</td>
+<td>/mnt</td>
+<td>剩余空间</td>
+<td>Linux x86-64 根目录 (/)</td>
+</tr>
+</tbody></table>
+<h5 id="执行分区"><a href="#执行分区" class="headerlink" title="执行分区"></a>执行分区</h5><p>使用命令<code>cfdisk /dev/sda</code>进行硬盘分区，选择gpt分区格式：</p>
+<p><img src="../images/23.png"></p>
+<p>接下来对Free space进行分区，下面以对EFI的分区为例，SWAP分区和根目录分区的方式和EFI分区相同，具体数据参照上一小节中的分区设计表即可。选择下方的<code>[New]</code>：</p>
+<p><img src="../images/24.png"></p>
+<p>输入分区大小，512M：</p>
+<p><img src="../images/25.png"></p>
+<p>选择<code>[Type]</code>修改分区类型，类型选择<code>EFI System</code>：</p>
+<p><img src="../images/26.png"></p>
+<p>SWAP分区和根目录分区的方法如法炮制，最终分区结果如下，选择<code>[Write]</code>将分区表写入硬盘中，然后选择<code>[Quit]</code>退出即可。</p>
+<p><img src="../images/27.png"></p>
+<p>退出后，可再次使用<code>fisk -l</code>查看分区情况。</p>
+<h5 id="格式化分区"><a href="#格式化分区" class="headerlink" title="格式化分区"></a>格式化分区</h5><p>分区后需要进行格式化才能正常使用：</p>
+<ul>
+<li>EFI分区：由于这里使用了EFI分区，因为EFI分区需要FAT32文件格式，所以需要将其格式化为FAT32格式。</li>
+<li>Swap分区：使用 mkswap 将其初始化,使用swapon激活交换空间。</li>
+<li>根目录分区：格式化为ext4格式。</li>
+</ul>
+<pre class=" language-bash"><code class="language-bash">mkfs.fat -F32 /dev/sda1
+mkfs.ext4 /dev/sda3
+mkswap /dev/sda2
+swapon /dev/sda2
+</code></pre>
+<h5 id="挂载分区"><a href="#挂载分区" class="headerlink" title="挂载分区"></a>挂载分区</h5><pre class=" language-bash"><code class="language-bash"><span class="token function">mount</span> /dev/sda3 /mnt
+<span class="token function">mkdir</span> -p /mnt/efi
+<span class="token function">mount</span> /dev/sda1 /mnt/efi
+</code></pre>
+<h4 id="修改镜像源"><a href="#修改镜像源" class="headerlink" title="修改镜像源"></a>修改镜像源</h4><p>为了提升下载速度，这里镜像源只保留清华源：</p>
+<pre class=" language-bash"><code class="language-bash">vim /etc/pacman.d/mirrorlist
+</code></pre>
+<p><img src="../images/28.png"></p>
+<h4 id="安装基本软件"><a href="#安装基本软件" class="headerlink" title="安装基本软件"></a>安装基本软件</h4><pre class=" language-bash"><code class="language-bash">pacstrap /mnt base base-devel linux linux-firmware vim <span class="token function">wget</span> man-db man-pages
+</code></pre>
+<h4 id="生成fstab文件"><a href="#生成fstab文件" class="headerlink" title="生成fstab文件"></a>生成fstab文件</h4><p>fstab文件用于自动挂载分区：</p>
+<pre class=" language-bash"><code class="language-bash">genfstab -U /mnt <span class="token operator">>></span> /mnt/etc/fstab
+</code></pre>
+<p>至此，ArchLinux的基本系统已经安装完毕。下面，我们进入安装好的系统里进行一些配置。</p>
+<h3 id="配置ArchLinux系统"><a href="#配置ArchLinux系统" class="headerlink" title="配置ArchLinux系统"></a>配置ArchLinux系统</h3><h4 id="切换根目录到新系统"><a href="#切换根目录到新系统" class="headerlink" title="切换根目录到新系统"></a>切换根目录到新系统</h4><pre class=" language-bash"><code class="language-bash">arch-chroot /mnt
+</code></pre>
+<h4 id="设置时区"><a href="#设置时区" class="headerlink" title="设置时区"></a>设置时区</h4><p>更改时区为亚洲、上海，并同步到硬件时间：</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">ln</span> -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtimehwclock --systohc
+</code></pre>
+<h4 id="设置语言"><a href="#设置语言" class="headerlink" title="设置语言"></a>设置语言</h4><p>使用vim解除<code>/etc/locale.gen</code>中的<code>en_US.UTF-8 UTF-8</code>和<code>zh_CN.UTF-8 UTF-8</code>中的注释，运行下面的命令：</p>
+<pre class=" language-bash"><code class="language-bash">locale-genecho LANG<span class="token operator">=</span>en_US.UTF-8 <span class="token operator">></span> /etc/locale.conf
+</code></pre>
+<h4 id="配置网络"><a href="#配置网络" class="headerlink" title="配置网络"></a>配置网络</h4><ul>
+<li><code>echo arch &gt; /etc/hostname</code></li>
+<li>编辑<code>/etc/hosts</code>：</li>
+</ul>
+<pre class=" language-bash"><code class="language-bash">127.0.0.1       localhost
+::1             localhost
+127.0.1.1       arch.localdomain arch
+</code></pre>
+<ul>
+<li>安装<code>NetworkManager</code>：</li>
+</ul>
+<pre class=" language-bash"><code class="language-bash">pacman -S networkmanager network-manager-appletsystemctl <span class="token function">enable</span> NetworkManager.service
+</code></pre>
+<h4 id="设置root密码"><a href="#设置root密码" class="headerlink" title="设置root密码"></a>设置root密码</h4><pre class=" language-bash"><code class="language-bash"><span class="token function">passwd</span>
+</code></pre>
+<h4 id="安装启动盘引导器"><a href="#安装启动盘引导器" class="headerlink" title="安装启动盘引导器"></a>安装启动盘引导器</h4><pre class=" language-bash"><code class="language-bash">mkinitcpio -P
+pacman -S grub efibootmgr intel-ucode amd-ucode
+grub-install --target<span class="token operator">=</span>x86_64-efi --efi-directory<span class="token operator">=</span>/efi --bootloader-id<span class="token operator">=</span>ArchLinux
+grub-mkconfig -o /boot/grub/grub.cfg
+</code></pre>
+<h4 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h4><p>添加用户xxx作为日常使用的账户：</p>
+<pre class=" language-bash"><code class="language-bash">pacman -S <span class="token function">sudo</span>
+<span class="token function">useradd</span> -m -G wheel -s /bin/bash xxx
+<span class="token function">passwd</span> xxx
+<span class="token function">passwd</span> -l root
+</code></pre>
+<h4 id="配置pacman"><a href="#配置pacman" class="headerlink" title="配置pacman"></a>配置pacman</h4><p>在 <code>/etc/pacman.conf </code>文件末尾添加以下：</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>archlinuxcn<span class="token punctuation">]</span>
+Server <span class="token operator">=</span> https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/<span class="token variable">$arch</span>
+
+<span class="token punctuation">[</span>arch4edu<span class="token punctuation">]</span>
+Server <span class="token operator">=</span> https://mirrors.tuna.tsinghua.edu.cn/arch4edu/<span class="token variable">$arch</span>
+</code></pre>
+<p>执行命令：</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> pacman-key --recv-keys 7931B6D628C8D3BA
+<span class="token function">sudo</span> pacman-key --finger 7931B6D628C8D3BA
+<span class="token function">sudo</span> pacman-key --lsign-key 7931B6D628C8D3BA
+<span class="token function">sudo</span> pacman -Sy archlinuxcn-keyring
+</code></pre>
+<p>注意，如果在<code>sudo pacman-key --lsign-key 7931B6D628C8D3BA</code>处报和时间有关的错误，可使用<code>date</code>命令修改相应的时间偏移量即可。</p>
+<p>除此之外，还可以解除<code>/etc/pacman.conf</code>中的<code>Color</code>和<code>TotalDownload</code>注释。</p>
+<h4 id="安装Aur助手"><a href="#安装Aur助手" class="headerlink" title="安装Aur助手"></a>安装Aur助手</h4><pre class=" language-shell"><code class="language-shell">sudo pacman -S yay
+</code></pre>
+<h4 id="安装桌面"><a href="#安装桌面" class="headerlink" title="安装桌面"></a>安装桌面</h4><p>这里选择安装KDE，有其他桌面环境安装需求可参考<a href="">这里</a>。</p>
+<ul>
+<li>安装xorg服务：</li>
+</ul>
+<pre class=" language-shell"><code class="language-shell">sudo pacman -S xorg xorg-server
+</code></pre>
+<ul>
+<li>安装显卡：</li>
+</ul>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> pacman -S xf86-video-intel  <span class="token comment" spellcheck="true">#intel#</span>
+<span class="token function">sudo</span> pacman -S xf86-video-ati  <span class="token comment" spellcheck="true">#amd#</span>
+</code></pre>
+<ul>
+<li>安装显示管理器：</li>
+</ul>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> pacman -S sddm sddm-kcm
+systemctl <span class="token function">enable</span> sddm
+</code></pre>
+<ul>
+<li>安装KDE：</li>
+</ul>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> pacman -S plasma kde-applications
+</code></pre>
+<ul>
+<li>安装open-vm-tools：</li>
+</ul>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> pacman -Sy gtkmm
+<span class="token function">sudo</span> pacman -Sy open-vm-tools
+<span class="token function">sudo</span> pacman -Sy xf86-video-vmware
+<span class="token function">sudo</span> pacman -Sy xf86-input-vmmouse
+<span class="token function">sudo</span> systemctl <span class="token function">enable</span> vmtoolsd.service 
+<span class="token function">sudo</span> systemctl <span class="token function">enable</span> vmware-vmblock-fuse.service
+</code></pre>
+<p>至此，<code>reboot</code>后就可以看到KDE桌面环境啦！</p>
+<h4 id="配置xdg用户目录"><a href="#配置xdg用户目录" class="headerlink" title="配置xdg用户目录"></a>配置xdg用户目录</h4><p>一般情况下，<code>~</code>目录下会有<code>Downloads</code>等具有特殊含义的目录，可以使用以下命令自动生成：</p>
+<pre class=" language-bash"><code class="language-bash">yay -S xdg-user-dirs
+xdg-user-dirs-update
+</code></pre>
+<h4 id="文件系统和gvfs"><a href="#文件系统和gvfs" class="headerlink" title="文件系统和gvfs"></a>文件系统和gvfs</h4><pre class=" language-shell"><code class="language-shell">yay -S gvfs gvfs-mtp gvfs-smb gvfs-afc ntfs-3g dosfstools udisks2
+</code></pre>
+<h4 id="安装中文字体"><a href="#安装中文字体" class="headerlink" title="安装中文字体"></a>安装中文字体</h4><p>将Windows中的中文字体（<code>C:\Windows\Fonts</code>）打个压缩包发送到arch中，存放到<code>/usr/local/share/fonts</code>目录下：</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">cd</span> /usr/local/share
+<span class="token function">sudo</span> <span class="token function">mkdir</span> fonts
+<span class="token function">sudo</span> <span class="token function">mv</span> /path/to/Fonts.rar /usr/local/share/fonts
+<span class="token function">sudo</span> fc-cache -fv
+</code></pre>
+<p>推荐<code>monoco</code>作为终端字体<code>yay ttf-monaco</code>，编辑<code>~/.config/fontconfig/fonts.conf</code>：</p>
+<pre class=" language-xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0"?></span>
+<span class="token doctype">&lt;!DOCTYPE fontconfig SYSTEM "fonts.dtd"></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>fontconfig</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>alias</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>family</span><span class="token punctuation">></span></span>serif<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>family</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>prefer</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>family</span><span class="token punctuation">></span></span>Times New Roman<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>family</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>family</span><span class="token punctuation">></span></span>SimSun<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>family</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>prefer</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>alias</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>alias</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>family</span><span class="token punctuation">></span></span>sans-serif<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>family</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>prefer</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>family</span><span class="token punctuation">></span></span>Arial<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>family</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>family</span><span class="token punctuation">></span></span>SimHei<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>family</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>prefer</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>alias</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>alias</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>family</span><span class="token punctuation">></span></span>monospace<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>family</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>prefer</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>family</span><span class="token punctuation">></span></span>Monaco<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>family</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>family</span><span class="token punctuation">></span></span>SimSun<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>family</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>prefer</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>alias</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>fontconfig</span><span class="token punctuation">></span></span>
+</code></pre>
+<h4 id="安装输入法"><a href="#安装输入法" class="headerlink" title="安装输入法"></a>安装输入法</h4><pre class=" language-shell"><code class="language-shell">yay -S fcitx5 fcitx5-im fcitx5-chinese-addons fcitx5-configtool fcitx5-pinyin-zhwiki fcitx5-gtk fcitx5-qt
+</code></pre>
+<p>新建文件<code>vim ~/.pam_environment</code>并添加以下内容后<code>reboot</code>即可：</p>
+<pre class=" language-bash"><code class="language-bash">GTK_IM_MODULE DEFAULT<span class="token operator">=</span>fcitx
+QT_IM_MODULE  DEFAULT<span class="token operator">=</span>fcitx
+XMODIFIERS    DEFAULT<span class="token operator">=</span>\@im<span class="token operator">=</span>fcitx
+SDL_IM_MODULE DEFAULT<span class="token operator">=</span>fcitx
+</code></pre>
+<p>重启后，在桌面右下角会出现小键盘的图标，右键configure添加Pinyin这个Input Method即可。默认的输入法切换快捷键是<code>ctrl+space</code>，可以在配置里自行修改为<code>Left Shift</code>。</p>
+<h4 id="安装v2ray"><a href="#安装v2ray" class="headerlink" title="安装v2ray"></a>安装v2ray</h4><pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> pacman -S v2ray
+<span class="token function">sudo</span> systemctl <span class="token function">enable</span> v2ray@xxx <span class="token comment" spellcheck="true"># 假如配置文件为xxx.json</span>
+</code></pre>
+<p>使用<code>chromium --proxy-server=&quot;socks5://127.0.0.1:1080&quot;</code>可以使chromium临时接受代理。</p>
+<p>我们这里使用的是socks5代理，但有些应用可能不支持使用socks5代理，这时候对于命令行的大多数程序，<code>proxychains</code>就可以提供帮助。</p>
+<pre class=" language-shell"><code class="language-shell">yay -S proxychains-ng
+</code></pre>
+<p>编辑<code>/etc/proxychains.conf</code>。解除<code>quiet_mode</code>的注释，最后一行由<code>socks4 127.0.0.1 9050</code>改为<code>socks5 127.0.0.1 1080</code>。此时，在需要运行的命令前加上proxychains就可以方便地使用。如：</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 一些proxychains的例子</span>
+proxychains <span class="token function">wget</span> https://google.com
+proxychains <span class="token function">git</span> clone <span class="token punctuation">..</span>.
+proxychains pip <span class="token function">install</span> -r requirements.txt
+proxychains <span class="token function">npm</span> <span class="token function">install</span>
+</code></pre>
+<p>对于<code>proxychains</code>也失效的情况，可以使用全局透明代理来解决，借助iptables可以实现全系统的透明代理。首先允许IP包转发：</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> sh -c <span class="token string">"echo net.ipv4.ip_forward=1 > /etc/sysctl.d/10-ip_forward.conf"</span>
+<span class="token function">sudo</span> sysctl --system
+</code></pre>
+<p>接下来下载<a target="_blank" rel="noopener" href="https://szp15.com/">szp大神</a>写好的透明代理脚本：</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">cd</span> /usr/local/bin
+<span class="token function">sudo</span> proxychains <span class="token function">wget</span> https://raw.githubusercontent.com/sunziping2016/tproxyctl/master/tproxyctl
+<span class="token function">sudo</span> <span class="token function">chmod</span> +x tproxyctl
+</code></pre>
+<p>最后就可以使用以下命令开启/关闭全局透明代理：</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> tproxyctl start
+<span class="token function">sudo</span> tproxyctl stop
+</code></pre>
+<h4 id="安装zsh"><a href="#安装zsh" class="headerlink" title="安装zsh"></a>安装zsh</h4><pre class=" language-bash"><code class="language-bash">yay -S zsh
+chsh -s /bin/zsh
+yay -S oh-my-zsh-git
+<span class="token function">cp</span> /usr/share/oh-my-zsh/zshrc ~/.zshrc
+yay -S zsh-theme-powerlevel10k
+ZSH_THEME<span class="token operator">=</span><span class="token string">"powerlevel10k/powerlevel10k"</span> <span class="token comment" spellcheck="true"># 修改~/.zshrc文件</span>
+<span class="token function">source</span> ~/.zshrc
+</code></pre>
+<p>另外，推荐<code>Hack Nerd Mono</code>作为终端字体：</p>
+<pre class=" language-bash"><code class="language-bash">yay -S nerd-fonts-hack
+fc-cache
+</code></pre>
+<h4 id="安装常用的软件"><a href="#安装常用的软件" class="headerlink" title="安装常用的软件"></a>安装常用的软件</h4><pre class=" language-bash"><code class="language-bash">yay -S <span class="token function">bzip2</span> <span class="token function">zip</span> p7zip unzip-iconv <span class="token function">unrar</span> <span class="token comment" spellcheck="true">#安装常用的压缩软件</span>
+yay -S nutstore <span class="token comment" spellcheck="true"># 安装坚果云</span>
+yay -S <span class="token function">git</span> 
+yay -S openssh 
+yay -S typora 
+yay -S vscode 
+yay -S google-chrome
+yay -S tree
+</code></pre>
+<h4 id="安装Rust"><a href="#安装Rust" class="headerlink" title="安装Rust"></a>安装Rust</h4><pre class=" language-bash"><code class="language-bash">curl --proto <span class="token string">'=https'</span> --tlsv1.2 -sSf https://sh.rustup.rs <span class="token operator">|</span> sh
+<span class="token keyword">echo</span> <span class="token string">'source "\<span class="token variable">$HOME</span>/.cargo/env"'</span> <span class="token operator">>></span> ~/.zshrc
+</code></pre>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">sugar</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://janetmayle.github.io/janetmayle.github.io/posts/7db1dc3d.html">https://janetmayle.github.io/janetmayle.github.io/posts/7db1dc3d.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">sugar</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Linux/">
+                                    <span class="chip bg-color">Linux</span>
+                                </a>
+                            
+                                <a href="/tags/%E9%85%8D%E7%BD%AE/">
+                                    <span class="chip bg-color">配置</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/posts/10d4fadd.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="七步洗手法">
+                        
+                        <span class="card-title">七步洗手法</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            口诀：“内外夹攻大力丸”
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-18
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%9D%82%E5%AD%A6/" class="post-category">
+                                    杂学
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%9D%82%E5%AD%A6/">
+                        <span class="chip bg-color">杂学</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/posts/c8d89310.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="《人生的智慧》：论一个平凡的人如何幸福度过一生">
+                        
+                        <span class="card-title">《人生的智慧》：论一个平凡的人如何幸福度过一生</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            《人生的智慧》- 叔本华
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-18
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-category">
+                                    读书笔记
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">读书笔记</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 清和与嘉平<br />'
+            + '文章作者: sugar<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('2'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2021</span>
+            
+            <span id="year">2021</span>
+            <a href="/about" target="_blank">sugar</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">34.8k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2021";
+                        var startMonth = "6";
+                        var startDate = "1";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
