@@ -353,14 +353,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-06-17
+                    2021-06-08
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-06-17
+                    2021-06-18
                 </div>
                 
 
@@ -394,37 +394,34 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="函数">函数</h3>
-<h4 id="基本语法">基本语法</h4>
-<p>Rust的函数使用<code>fn</code>关键字开头，函数可以有一系列的输入参数，还有一个返回类型。函数返回可以使用<code>return</code>语句，可以使用表达式。下面是一个标准函数的示例，<code>add</code>函数接受两个<code>i32</code>的参数，然后计算它们的和并返回：</p>
-<pre class=" language-language-rust"><code class="language-language-rust">fn add(a: i32, b: i32) -> i32 {
-    a + b
-}
-println!("{}", add(1, 2)); // 输出：3
+                <h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><h4 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h4><p>Rust的函数使用<code>fn</code>关键字开头，函数可以有一系列的输入参数，还有一个返回类型。函数返回可以使用<code>return</code>语句，可以使用表达式。下面是一个标准函数的示例，<code>add</code>函数接受两个<code>i32</code>的参数，然后计算它们的和并返回：</p>
+<pre class=" language-rust"><code class="language-rust"><span class="token keyword">fn</span> <span class="token function">add</span><span class="token punctuation">(</span>a<span class="token punctuation">:</span> i32<span class="token punctuation">,</span> b<span class="token punctuation">:</span> i32<span class="token punctuation">)</span> <span class="token punctuation">-></span> i32 <span class="token punctuation">{</span>
+    a <span class="token operator">+</span> b
+<span class="token punctuation">}</span>
+<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{}"</span><span class="token punctuation">,</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 输出：3</span>
 </code></pre>
 <p>函数返回值如果不显示标明，默认是<code>()</code>。函数返回值类型也可以是never类型<code>!</code>，这一类函数叫做发散函数，代表这个函数不能够正常返回，例如：</p>
-<pre class=" language-language-rust"><code class="language-language-rust">fn diverges() -> ! {
-    panic!("This function never return!")
-}
+<pre class=" language-rust"><code class="language-rust"><span class="token keyword">fn</span> <span class="token function">diverges</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token operator">!</span> <span class="token punctuation">{</span>
+    <span class="token function">panic!</span><span class="token punctuation">(</span><span class="token string">"This function never return!"</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>Rust编写的可执行程序的入口是<code>fn main() -&gt; ()</code>函数。一般情况下，一个进程开始执行的时候可以接受一系列的参数，退出的时候也可以返回一个错误码，所以很多编程语言会为<code>main</code>函数设计参数和返回值类型，例如C语言中的<code>int main(int argc, char **argv)</code>。但是，Rust的<code>main</code>函数无参数也无返回值，其传递参数和返回状态码都通过单独的API来完成，示例如下：</p>
-<pre class=" language-language-rust"><code class="language-language-rust">fn main() {
-    for arg in std::env::args() {
-        println!("Arg: {}", arg);
-    }
-}
+<pre class=" language-rust"><code class="language-rust"><span class="token keyword">fn</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> arg <span class="token keyword">in</span> std<span class="token punctuation">:</span><span class="token punctuation">:</span>env<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">args</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"Arg: {}"</span><span class="token punctuation">,</span> arg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>可以通过<code>std::env::args()</code>函数获取参数，通过<code>exit()</code>函数的参数传递错误码，通过<code>std::env::var()</code>读取环境变量。</p>
-<h4 id="函数递归与TCO">函数递归与TCO</h4>
-<p>函数递归是我们常用的一种思维方式，Rust也支持函数递归调用。下面用经典的<code>Fibonacci</code>数列来举例：</p>
-<pre class=" language-language-rust"><code class="language-language-rust">fn fib(index: u32) -> u64 {
-    match index {
-        1 | 2 => 1,
-        _ => fib(index - 1) + fib(index - 2),
-    }
-}
+<h4 id="函数递归与TCO"><a href="#函数递归与TCO" class="headerlink" title="函数递归与TCO"></a>函数递归与TCO</h4><p>函数递归是我们常用的一种思维方式，Rust也支持函数递归调用。下面用经典的<code>Fibonacci</code>数列来举例：</p>
+<pre class=" language-rust"><code class="language-rust"><span class="token keyword">fn</span> <span class="token function">fib</span><span class="token punctuation">(</span>index<span class="token punctuation">:</span> u32<span class="token punctuation">)</span> <span class="token punctuation">-></span> u64 <span class="token punctuation">{</span>
+    <span class="token keyword">match</span> index <span class="token punctuation">{</span>
+        <span class="token number">1</span> <span class="token operator">|</span> <span class="token number">2</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token number">1</span><span class="token punctuation">,</span>
+        _ <span class="token operator">=</span><span class="token operator">></span> <span class="token function">fib</span><span class="token punctuation">(</span>index <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token function">fib</span><span class="token punctuation">(</span>index <span class="token operator">-</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-println!("{}", fib(25)); // 输出：75025
+<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{}"</span><span class="token punctuation">,</span> <span class="token function">fib</span><span class="token punctuation">(</span><span class="token number">25</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 输出：75025</span>
 </code></pre>
 <p>谈起递归，我们都会想到尾递归优化的概念（TCO，Tail Call Optimization）。TCO可以把尾递归在编译阶段转换为迭代循环从而降低时间和空间开销，需要注意的是，Rust并不支持TCO，某个RFC的作者给出了以下理由：</p>
 <ul>
@@ -432,141 +429,130 @@ println!("{}", fib(25)); // 输出：75025
 <li>LLVM中正确尾调用实际上可能会由于它们当时的实现方式而造成性能损失。</li>
 <li>TCO让调试变得更加困难，因为它重写了栈上的值。</li>
 </ul>
-<h3 id="方法">方法</h3>
-<p>在一些编程语言中，函数和方法往往是对同一种东西的两种称呼，但在Rust中，它们是有明确区分的。方法和函数的语法完全相同：它们使用 <code>fn</code> 关键字和名称声明，可以拥有参数和返回值，同时包含在某处调用该函数时会执行的代码。但是，只有在结构体上下文中被定义的函数才能称为方法。</p>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><p>在一些编程语言中，函数和方法往往是对同一种东西的两种称呼，但在Rust中，它们是有明确区分的。方法和函数的语法完全相同：它们使用 <code>fn</code> 关键字和名称声明，可以拥有参数和返回值，同时包含在某处调用该函数时会执行的代码。但是，只有在结构体上下文中被定义的函数才能称为方法。</p>
 <p>方法分为成员方法和静态方法，它们的区别在于第一个参数是否为<code>self</code>，若是则为成员方法，反之为静态方法。Rust中的<code>Self</code>和<code>self</code>都是关键字，其中<code>Self</code>是类型名，<code>self</code>是变量名，<code>self</code>代表调用该方法的结构体实例，静态方法属于结构体类型所有，所以不需要<code>self</code>。常见的<code>Self</code>和<code>self</code>的组合有： <code>self: Self</code>（获得所有权）、<code>self: &amp;Self</code>（仅仅读取）、<code>self: &amp;mut Self</code>（做出修改），因为它们的使用频率很高，Rust也提供了相应的语法糖来简写：<code>self</code>、<code>&amp;self</code>、<code>&amp;mut self</code>。</p>
-<h4 id="成员方法">成员方法</h4>
-<p>可以使用<code>impl</code>为结构体实现成员方法，如下面的代码所示。将函数移到<code>impl</code>块中，并将第一个参数改成<code>self</code>，就把函数变成了成员方法。和其他编程语言类似，调用成员方法只需在结构体示例后加<code>.</code>即可。每个结构体可以拥有多个<code>impl</code>块。</p>
-<pre class=" language-language-rust"><code class="language-language-rust">struct Rectangle {
-    width: u32,
-    height: u32,
-}
+<h4 id="成员方法"><a href="#成员方法" class="headerlink" title="成员方法"></a>成员方法</h4><p>可以使用<code>impl</code>为结构体实现成员方法，如下面的代码所示。将函数移到<code>impl</code>块中，并将第一个参数改成<code>self</code>，就把函数变成了成员方法。和其他编程语言类似，调用成员方法只需在结构体示例后加<code>.</code>即可。每个结构体可以拥有多个<code>impl</code>块。</p>
+<pre class=" language-rust"><code class="language-rust"><span class="token keyword">struct</span> Rectangle <span class="token punctuation">{</span>
+    width<span class="token punctuation">:</span> u32<span class="token punctuation">,</span>
+    height<span class="token punctuation">:</span> u32<span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
 
-impl Rectangle {
-    fn area(&self) -> u32 {
-        self.width * self.height
-    }
-}
+<span class="token keyword">impl</span> Rectangle <span class="token punctuation">{</span>
+    <span class="token keyword">fn</span> <span class="token function">area</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> u32 <span class="token punctuation">{</span>
+        <span class="token keyword">self</span><span class="token punctuation">.</span>width <span class="token operator">*</span> <span class="token keyword">self</span><span class="token punctuation">.</span>height
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-fn main() {
-    let rect = Rectangle { width: 30, height: 50 };
+<span class="token keyword">fn</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> rect <span class="token operator">=</span> Rectangle <span class="token punctuation">{</span> width<span class="token punctuation">:</span> <span class="token number">30</span><span class="token punctuation">,</span> height<span class="token punctuation">:</span> <span class="token number">50</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-    println!(
-        "The area of the rectangle is {} square pixels.",
-        rect.area()
-    );
-}
+    <span class="token function">println!</span><span class="token punctuation">(</span>
+        <span class="token string">"The area of the rectangle is {} square pixels."</span><span class="token punctuation">,</span>
+        rect<span class="token punctuation">.</span><span class="token function">area</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
-<h4 id="静态方法">静态方法</h4>
-<p>在<code>impl</code>块中定义的不以<code>self</code>作为第一个参数的方法就是静态方法，见下面的代码。可以使用结构体名和<code>::</code>运算符来调用静态方法，例如<code>let sq = Rectangle::square(3);</code>来获得一个大小为3的正方形。</p>
-<pre class=" language-language-rust"><code class="language-language-rust">// 接上面
-impl Rectangle {
-    fn square(size: u32) -> Rectangle {
-        Rectangle { width: size, height: size }
-    }
-}
+<h4 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h4><p>在<code>impl</code>块中定义的不以<code>self</code>作为第一个参数的方法就是静态方法，见下面的代码。可以使用结构体名和<code>::</code>运算符来调用静态方法，例如<code>let sq = Rectangle::square(3);</code>来获得一个大小为3的正方形。</p>
+<pre class=" language-rust"><code class="language-rust"><span class="token comment" spellcheck="true">// 接上面</span>
+<span class="token keyword">impl</span> Rectangle <span class="token punctuation">{</span>
+    <span class="token keyword">fn</span> <span class="token function">square</span><span class="token punctuation">(</span>size<span class="token punctuation">:</span> u32<span class="token punctuation">)</span> <span class="token punctuation">-></span> Rectangle <span class="token punctuation">{</span>
+        Rectangle <span class="token punctuation">{</span> width<span class="token punctuation">:</span> size<span class="token punctuation">,</span> height<span class="token punctuation">:</span> size <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
-<h3 id="trait">trait</h3>
-<h4 id="基本语法-2">基本语法</h4>
-<p>trait的功能类似于Java中的接口，trait可以翻译为“特性”，它可以为多种类型抽象出共同拥有的一些功能。一个类型的行为由其可供调用的方法构成。如果可以对不同类型调用相同的方法的话，这些类型就可以共享相同的行为了。trait 定义将方法签名组合起来，目的是定义一个实现某些目的所必需的行为的集合。这些方法既可以是成员方法，也可以是静态方法。trait可以用关键字<code>trait</code>来声明，例如：</p>
-<pre class=" language-language-rust"><code class="language-language-rust">trait Shape {
-    fn area(&self) -> u32;
-    fn hello();
-}
+<h3 id="trait"><a href="#trait" class="headerlink" title="trait"></a>trait</h3><h4 id="基本语法-1"><a href="#基本语法-1" class="headerlink" title="基本语法"></a>基本语法</h4><p>trait的功能类似于Java中的接口，trait可以翻译为“特性”，它可以为多种类型抽象出共同拥有的一些功能。一个类型的行为由其可供调用的方法构成。如果可以对不同类型调用相同的方法的话，这些类型就可以共享相同的行为了。trait 定义将方法签名组合起来，目的是定义一个实现某些目的所必需的行为的集合。这些方法既可以是成员方法，也可以是静态方法。trait可以用关键字<code>trait</code>来声明，例如：</p>
+<pre class=" language-rust"><code class="language-rust"><span class="token keyword">trait</span> Shape <span class="token punctuation">{</span>
+    <span class="token keyword">fn</span> <span class="token function">area</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> u32<span class="token punctuation">;</span>
+    <span class="token keyword">fn</span> <span class="token function">hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>上面的代码声明了一个名为<code>Shape</code>的trait，它有一个名为<code>area</code>的方法，即，若某个类型拥有<code>Shape</code>这个特性，那么它一定可以求面积。为某个类型实现trait使用<code>impl...for</code>关键字，例如：</p>
-<pre class=" language-language-rust"><code class="language-language-rust">struct Rectangle {
-    width: u32,
-    height: u32,
-}
+<pre class=" language-rust"><code class="language-rust"><span class="token keyword">struct</span> Rectangle <span class="token punctuation">{</span>
+    width<span class="token punctuation">:</span> u32<span class="token punctuation">,</span>
+    height<span class="token punctuation">:</span> u32<span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
 
-trait Shape {
-    fn area(&self) -> u32;
-    fn hello();
-}
+<span class="token keyword">trait</span> Shape <span class="token punctuation">{</span>
+    <span class="token keyword">fn</span> <span class="token function">area</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> u32<span class="token punctuation">;</span>
+    <span class="token keyword">fn</span> <span class="token function">hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-impl Shape for Rectangle {
-    fn area(&self) -> u32 {
-        self.width * self.height
-    }
+<span class="token keyword">impl</span> Shape <span class="token keyword">for</span> Rectangle <span class="token punctuation">{</span>
+    <span class="token keyword">fn</span> <span class="token function">area</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> u32 <span class="token punctuation">{</span>
+        <span class="token keyword">self</span><span class="token punctuation">.</span>width <span class="token operator">*</span> <span class="token keyword">self</span><span class="token punctuation">.</span>height
+    <span class="token punctuation">}</span>
 
-    fn hello() {
-        println!("Just say hello!")
-    }
-}
+    <span class="token keyword">fn</span> <span class="token function">hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"Just say hello!"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-fn main() {
-    let rect = Rectangle {
-        width: 30,
-        height: 50,
-    };
+<span class="token keyword">fn</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> rect <span class="token operator">=</span> Rectangle <span class="token punctuation">{</span>
+        width<span class="token punctuation">:</span> <span class="token number">30</span><span class="token punctuation">,</span>
+        height<span class="token punctuation">:</span> <span class="token number">50</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-    println!(
-        "The area of the rectangle is {} square pixels.",
-        rect.area()
-    );
+    <span class="token function">println!</span><span class="token punctuation">(</span>
+        <span class="token string">"The area of the rectangle is {} square pixels."</span><span class="token punctuation">,</span>
+        rect<span class="token punctuation">.</span><span class="token function">area</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    Rectangle::hello();
-}
+    Rectangle<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>trait中的方法也可以有默认实现，那么在针对具体类型实现的时候，就可以不用重写。我们也可以利用trait为其他类型扩展方法，哪怕这个类型不是我们自己写的。例如，可以为内置类型<code>i32</code>添加一个方法：</p>
-<pre class=" language-language-rust"><code class="language-language-rust">trait Double {
-    fn double(&self) -> i32;
-}
+<pre class=" language-rust"><code class="language-rust"><span class="token keyword">trait</span> Double <span class="token punctuation">{</span>
+    <span class="token keyword">fn</span> <span class="token function">double</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> i32<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-impl Double for i32 {
-    fn double(&self) -> i32 {
-        *self * 2
-    }
-}
+<span class="token keyword">impl</span> Double <span class="token keyword">for</span> i32 <span class="token punctuation">{</span>
+    <span class="token keyword">fn</span> <span class="token function">double</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> i32 <span class="token punctuation">{</span>
+        <span class="token operator">*</span><span class="token keyword">self</span> <span class="token operator">*</span> <span class="token number">2</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-fn main() {
-    let i: i32 = 5;
-    println!("{}", i.double()); // 输出：10
-}
+<span class="token keyword">fn</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> i<span class="token punctuation">:</span> i32 <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+    <span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{}"</span><span class="token punctuation">,</span> i<span class="token punctuation">.</span><span class="token function">double</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 输出：10</span>
+<span class="token punctuation">}</span>
 </code></pre>
-<h4 id="孤儿规则">孤儿规则</h4>
-<p>使用trait为类型扩展方法也要受到一定的限制，在声明trait和impl trait的时候，Rust规定了一个一致性规则，也称为孤儿规则：impl块要么与trait的声明在同一个crate中，要么与类型的声明在同一个crate中。也就是说，如果trait和类型都来自于外部的crate，那么便不允许为这个类型实现该trait。这是因为，该类型没有实现该trait，这可能是该类型作者有意的设计，强行实现可能会导致bug。</p>
-<h4 id="trait和接口的区别">trait和接口的区别</h4>
-<p>之前我们说trait和接口在功能上类似，但它们在使用中是有区别的。trait本身不是具体类型，也不是指针类型，它只是定义了针对类型的抽象的约束，不同的类型可以实现同一个trait，而这些类型可能具有不同的大小，因此trait在编译阶段没有固定大小，所以，Rust中不能直接使用trait作为实例变量、参数和返回值，这一点和接口的习惯用法是不同的。例如，下面的代码就是编译错误的：</p>
-<pre class=" language-language-rust"><code class="language-language-rust">trait Shape {
-    fn area(&self) -> u32;
-}
+<h4 id="孤儿规则"><a href="#孤儿规则" class="headerlink" title="孤儿规则"></a>孤儿规则</h4><p>使用trait为类型扩展方法也要受到一定的限制，在声明trait和impl trait的时候，Rust规定了一个一致性规则，也称为孤儿规则：impl块要么与trait的声明在同一个crate中，要么与类型的声明在同一个crate中。也就是说，如果trait和类型都来自于外部的crate，那么便不允许为这个类型实现该trait。这是因为，该类型没有实现该trait，这可能是该类型作者有意的设计，强行实现可能会导致bug。</p>
+<h4 id="trait和接口的区别"><a href="#trait和接口的区别" class="headerlink" title="trait和接口的区别"></a>trait和接口的区别</h4><p>之前我们说trait和接口在功能上类似，但它们在使用中是有区别的。trait本身不是具体类型，也不是指针类型，它只是定义了针对类型的抽象的约束，不同的类型可以实现同一个trait，而这些类型可能具有不同的大小，因此trait在编译阶段没有固定大小，所以，Rust中不能直接使用trait作为实例变量、参数和返回值，这一点和接口的习惯用法是不同的。例如，下面的代码就是编译错误的：</p>
+<pre class=" language-rust"><code class="language-rust"><span class="token keyword">trait</span> Shape <span class="token punctuation">{</span>
+    <span class="token keyword">fn</span> <span class="token function">area</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> u32<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-fn test(shape: Shape) {}
+<span class="token keyword">fn</span> <span class="token function">test</span><span class="token punctuation">(</span>shape<span class="token punctuation">:</span> Shape<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 
-// error[E0277]: the size for values of type `(dyn Shape + 'static)` cannot be known at compilation time
+<span class="token comment" spellcheck="true">// error[E0277]: the size for values of type `(dyn Shape + 'static)` cannot be known at compilation time</span>
 </code></pre>
-<h4 id="trait继承">trait继承</h4>
-<p>trait允许继承，例如：</p>
-<pre class=" language-language-rust"><code class="language-language-rust">trait Base {}
-trait Derived: Base {}
+<h4 id="trait继承"><a href="#trait继承" class="headerlink" title="trait继承"></a>trait继承</h4><p>trait允许继承，例如：</p>
+<pre class=" language-rust"><code class="language-rust"><span class="token keyword">trait</span> Base <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">trait</span> Derived<span class="token punctuation">:</span> Base <span class="token punctuation">{</span><span class="token punctuation">}</span>
 </code></pre>
 <p>这表示<code>Derived</code>继承了<code>Base</code>，它意味着，满足<code>Derived</code>的类型，必然也满足<code>Base</code>，所以，在针对一个具体类型<code>impl Derived</code>的时候，编译器也会要求同时<code>impl Base</code>，否则会报编译错误：</p>
-<pre class=" language-language-rust"><code class="language-language-rust">trait Base {}
-trait Derived: Base {}
-struct T;
-// error[E0277]: the trait bound `T: Base` is not satisfied
-impl Derived for T {}
+<pre class=" language-rust"><code class="language-rust"><span class="token keyword">trait</span> Base <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">trait</span> Derived<span class="token punctuation">:</span> Base <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">struct</span> T<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// error[E0277]: the trait bound `T: Base` is not satisfied</span>
+<span class="token keyword">impl</span> Derived <span class="token keyword">for</span> T <span class="token punctuation">{</span><span class="token punctuation">}</span>
 </code></pre>
-<h3 id="常见trait简介">常见trait简介</h3>
-<p>标准库中有很多常见且很有用的trait，我们一起学习一下。</p>
-<h4 id="Display和Debug">Display和Debug</h4>
-<p><code>Display</code>和<code>Debug</code>的定义如下：</p>
-<pre class=" language-language-rust"><code class="language-language-rust">pub trait Display {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result;
-}
-pub trait Debug {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result;
-}
+<h3 id="常见trait简介"><a href="#常见trait简介" class="headerlink" title="常见trait简介"></a>常见trait简介</h3><p>标准库中有很多常见且很有用的trait，我们一起学习一下。</p>
+<h4 id="Display和Debug"><a href="#Display和Debug" class="headerlink" title="Display和Debug"></a>Display和Debug</h4><p><code>Display</code>和<code>Debug</code>的定义如下：</p>
+<pre class=" language-rust"><code class="language-rust"><span class="token keyword">pub</span> <span class="token keyword">trait</span> Display <span class="token punctuation">{</span>
+    <span class="token keyword">fn</span> <span class="token function">fmt</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span> f<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token keyword">mut</span> Formatter<span class="token operator">&lt;</span>'_<span class="token operator">></span><span class="token punctuation">)</span> <span class="token punctuation">-></span> Result<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">pub</span> <span class="token keyword">trait</span> Debug <span class="token punctuation">{</span>
+    <span class="token keyword">fn</span> <span class="token function">fmt</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span> f<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token keyword">mut</span> Formatter<span class="token operator">&lt;</span>'_<span class="token operator">></span><span class="token punctuation">)</span> <span class="token punctuation">-></span> Result<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>这两个trait主要用在类似<code>println!</code>这样进行输出的地方。只有实现了<code>Display</code>的类型，才能用<code>&#123;&#125;</code>格式打印出来；只有实现了<code>Debug</code>的类型，才能用<code>&#123;:?&#125;</code>和<code>&#123;:#?&#125;</code>格式打印出来。它们之间的更多区别如下：</p>
 <ul>
 <li><code>Display</code>假定了这个类型可以用<code>utf-8</code>格式的字符串表示，它是准备给最终用户看的，并不是所有的类型都应该实现这个trait。标准库中还有一个常用的trait叫作<code>std::string::ToString</code>，对于所有实现<code>Display</code>的类型， 都自动实现了这个<code>ToString</code>trait，它包含了一个<code>to_string(&amp;self)-&gt;String</code>方法。</li>
 <li><code>Debug</code>主要是为了调试使用，建议所有的作为API的公开类型都应当实现这个trait，以方便调试。</li>
 </ul>
-<h4 id="PartialOrd-Ord-PartialEq-Eq">PartialOrd/Ord/PartialEq/Eq</h4>
-<p>我们首先介绍一下全序和偏序的概念。对于集合<code>X</code>中的元素<code>a,b,c</code>：</p>
+<h4 id="PartialOrd-Ord-PartialEq-Eq"><a href="#PartialOrd-Ord-PartialEq-Eq" class="headerlink" title="PartialOrd/Ord/PartialEq/Eq"></a>PartialOrd/Ord/PartialEq/Eq</h4><p>我们首先介绍一下全序和偏序的概念。对于集合<code>X</code>中的元素<code>a,b,c</code>：</p>
 <ul>
 <li>如果<code>a &lt; b</code>则一定有<code>!(a &gt; b)</code>，称为反对称性；</li>
 <li>如果<code>a &lt; b</code>且<code>b &lt; c</code>则一定有<code>a &lt; c</code>，称为传递性；</li>
@@ -574,32 +560,29 @@ pub trait Debug {
 </ul>
 <p>如果集合中的元素只具备上述前两条特征，则称<code>X</code>是偏序；同时具备以上所有特征，则称<code>X</code>是全序。</p>
 <p>Rust设计了两个trait来对全序和偏序进行描述，<code>PartialOrd</code>代表偏序，<code>Ord</code>代表全序。只有满足全序的类型才可以进行排序，像浮点数这样的偏序类型就无法排序。同理，<code>PartialEq</code>用来描述只能部分元素进行相等比较，<code>Eq</code>表示全部元素都可以进行相等比较。这样的设计可以让我们在更早的阶段发现错误。</p>
-<h4 id="Sized">Sized</h4>
-<p>这个trait表示类型是否有大小，它定义在<code>std::marker</code>模块中，它没有任何的成员方法，它与普通trait不同，编译器对它有特殊处理，用户也不能针对自己的类型实现这个trait。一个类型是否满足<code>Sized</code>约束完全是由编译器推导的，用户无权指定。</p>
-<h4 id="Default">Default</h4>
-<p>Rust中没有C++中构造函数的概念，因为相比普通函数，构造函数本身并没有提供额外的抽象能力，反倒增加了语法上的负担，因此，Rust推荐使用普通的静态函数作为类型的构造器，例如<code>String::new()</code>。对于那种无参数无错误处理的简单情况，标准库提供了<code>Default</code>来做统一抽象，其定义如下：</p>
-<pre class=" language-language-rust"><code class="language-language-rust">pub trait Default: Sized {
-    fn default() -> Self;
-}
+<h4 id="Sized"><a href="#Sized" class="headerlink" title="Sized"></a>Sized</h4><p>这个trait表示类型是否有大小，它定义在<code>std::marker</code>模块中，它没有任何的成员方法，它与普通trait不同，编译器对它有特殊处理，用户也不能针对自己的类型实现这个trait。一个类型是否满足<code>Sized</code>约束完全是由编译器推导的，用户无权指定。</p>
+<h4 id="Default"><a href="#Default" class="headerlink" title="Default"></a>Default</h4><p>Rust中没有C++中构造函数的概念，因为相比普通函数，构造函数本身并没有提供额外的抽象能力，反倒增加了语法上的负担，因此，Rust推荐使用普通的静态函数作为类型的构造器，例如<code>String::new()</code>。对于那种无参数无错误处理的简单情况，标准库提供了<code>Default</code>来做统一抽象，其定义如下：</p>
+<pre class=" language-rust"><code class="language-rust"><span class="token keyword">pub</span> <span class="token keyword">trait</span> Default<span class="token punctuation">:</span> Sized <span class="token punctuation">{</span>
+    <span class="token keyword">fn</span> <span class="token function">default</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> Self<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
-<h3 id="属性与derive">属性与derive</h3>
-<p>Rust中有一种语法，属性（attribute），基本格式类似于<code>#[xxx]</code>。属性可以用来注释声明，类似于Java中的注解。有一种非常实用的属性<code>derive</code>，可以帮助我们自动<code>impl</code>某些trait，因为实现某些<code>trait</code>的时候，逻辑是非常机械化的，例如<code>Debug</code>。示例如下：</p>
-<pre class=" language-language-rust"><code class="language-language-rust">#[derive(Debug)]
-struct Rectangle {
-    width: u32,
-    height: u32,
-}
-fn main() {
-    let rect = Rectangle {
-        width: 10,
-        height: 20,
-    };
-    // 输出：Rectangle { width: 10, height: 20 }
-    println!("{:?}", rect); 
-}
+<h3 id="属性与derive"><a href="#属性与derive" class="headerlink" title="属性与derive"></a>属性与derive</h3><p>Rust中有一种语法，属性（attribute），基本格式类似于<code>#[xxx]</code>。属性可以用来注释声明，类似于Java中的注解。有一种非常实用的属性<code>derive</code>，可以帮助我们自动<code>impl</code>某些trait，因为实现某些<code>trait</code>的时候，逻辑是非常机械化的，例如<code>Debug</code>。示例如下：</p>
+<pre class=" language-rust"><code class="language-rust"><span class="token attribute attr-name">#[derive(Debug)]</span>
+<span class="token keyword">struct</span> Rectangle <span class="token punctuation">{</span>
+    width<span class="token punctuation">:</span> u32<span class="token punctuation">,</span>
+    height<span class="token punctuation">:</span> u32<span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">fn</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> rect <span class="token operator">=</span> Rectangle <span class="token punctuation">{</span>
+        width<span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">,</span>
+        height<span class="token punctuation">:</span> <span class="token number">20</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 输出：Rectangle { width: 10, height: 20 }</span>
+    <span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{:?}"</span><span class="token punctuation">,</span> rect<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token punctuation">}</span>
 </code></pre>
 <p>目前，Rust支持的可以自动<code>derive</code>的trait有以下这些：</p>
-<pre class=" language-language-rust"><code class="language-language-rust">Debug 
+<pre class=" language-rust"><code class="language-rust">Debug 
 Clone Copy 
 Hash 
 RustcEncodable RustcDecodable 
@@ -608,8 +591,7 @@ Default
 FromPrimitive 
 Send Sync
 </code></pre>
-<h3 id="参考文献">参考文献</h3>
-<ul>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><ul>
 <li>《Rust编程之道》张汉东</li>
 <li>《深入浅出Rust》范长春</li>
 </ul>
@@ -728,30 +710,29 @@ Send Sync
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/posts/74ae38f8.html">
+                <a href="/posts/60ac49c8.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Rust学习笔记#5：函数和trait">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Rust学习笔记#6：所有权系统">
                         
-                        <span class="card-title">Rust学习笔记#5：函数和trait</span>
+                        <span class="card-title">Rust学习笔记#6：所有权系统</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            介绍函数和trait的概念
+                            介绍所有权系统的概念
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-17
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-09
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -764,7 +745,6 @@ Send Sync
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -804,7 +784,7 @@ Send Sync
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-17
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-06
                             </span>
                         <span class="publish-author">
                             
@@ -1014,7 +994,7 @@ Send Sync
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">16.7k</span>
+                        class="white-color">32k</span>
             
             
             
