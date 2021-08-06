@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Rust学习笔记#8：智能指针与所有权, 清和与嘉平">
+    <meta name="keywords" content="《软件工程：理论与实践》学习笔记, 清和与嘉平">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Rust学习笔记#8：智能指针与所有权 | 清和与嘉平</title>
+    <title>《软件工程：理论与实践》学习笔记 | 清和与嘉平</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -203,12 +203,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Rust学习笔记#8：智能指针与所有权</h1>
+                    <h1 class="description center-align post-title">《软件工程：理论与实践》学习笔记</h1>
                 </div>
             </div>
         </div>
@@ -324,12 +324,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Rust/">
-                                <span class="chip bg-color">Rust</span>
-                            </a>
-                        
-                            <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-                                <span class="chip bg-color">学习笔记</span>
+                            <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                                <span class="chip bg-color">读书笔记</span>
                             </a>
                         
                     </div>
@@ -340,8 +336,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Rust/" class="post-category">
-                                Rust
+                            <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-category">
+                                读书笔记
                             </a>
                         
                     </div>
@@ -353,28 +349,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-06-14
+                    2021-08-06
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-06-18
+                    2021-08-06
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.3k
+                    2.9k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    8 分
+                    9 分
                 </div>
                 
 
@@ -394,117 +390,118 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>对于借用指针，取引用是<code>&amp;</code>，解引用是<code>*</code>，取引用的语义是获得地址，其行为由编译器控制，而解引用却确定了一个指针的行为，用户可以自定义解引用操作符的具体操作，下面具体讲一讲解引用相关的知识。</p>
-<h3 id="解引用"><a href="#解引用" class="headerlink" title="解引用"></a>解引用</h3><h4 id="自定义解引用"><a href="#自定义解引用" class="headerlink" title="自定义解引用"></a>自定义解引用</h4><p>我们可以通过实现标准库中的<code>std::ops::Deref</code>或者<code>std::ops::DerefMut</code>这两个trait来自定义解引用操作，其中<code>DerefMut</code>和<code>Deref</code>的区别是前者返回的是<code>&amp;mut</code>型引用，它们的源码如下。关联类型Target代表解引用之后的目标类型。</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">pub</span> <span class="token keyword">trait</span> Deref <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">/// The resulting type after dereferencing.</span>
-    <span class="token keyword">type</span> Target<span class="token punctuation">:</span> ?Sized<span class="token punctuation">;</span>
-    <span class="token comment" spellcheck="true">/// Dereferences the value.</span>
-    <span class="token keyword">fn</span> <span class="token function">deref</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token operator">&amp;</span>Self<span class="token punctuation">:</span><span class="token punctuation">:</span>Target<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">pub</span> <span class="token keyword">trait</span> DerefMut<span class="token punctuation">:</span> Deref <span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">/// Mutably dereferences the value.</span>
-    <span class="token keyword">fn</span> <span class="token function">deref_mut</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token operator">&amp;</span><span class="token keyword">mut</span> Self<span class="token punctuation">:</span><span class="token punctuation">:</span>Target<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>智能指针泛指除借用指针外实现了<code>Deref</code>的类型，如<code>String</code>、<code>Box&lt;T&gt;</code>、<code>Rc&lt;T&gt;</code>等。例如，标准库中实现了<code>String</code>向<code>str</code>的解引用转换：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">impl</span> ops<span class="token punctuation">:</span><span class="token punctuation">:</span>Deref <span class="token keyword">for</span> String <span class="token punctuation">{</span>
-    <span class="token keyword">type</span> Target <span class="token operator">=</span> str<span class="token punctuation">;</span>
-
-    <span class="token attribute attr-name">#[inline]</span>
-    <span class="token keyword">fn</span> <span class="token function">deref</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token operator">&amp;</span>str <span class="token punctuation">{</span>
-        <span class="token keyword">unsafe</span> <span class="token punctuation">{</span> str<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">from_utf8_unchecked</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">.</span>vec<span class="token punctuation">)</span> <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>需要注意的是，<code>deref()</code>方法返回的类型是<code>&amp;Target</code>，而非<code>Target</code>。如果说变量<code>s</code>的类型为<code>String</code>，则<code>*s</code>的类型并不等于<code>s.deref()</code>的类型。<code>*s</code>的类型实际上是<code>Target</code>，即<code>str</code>；而<code>s.deref()</code>的类型为<code>&amp;Target</code>，即<code>&amp;str</code>。</p>
-<h4 id="自动解引用"><a href="#自动解引用" class="headerlink" title="自动解引用"></a>自动解引用</h4><p>Rust编译器会进行隐式的deref调用，具体说，当找不到某个变量对应的成员方法时，编译器会自动对该变量执行deref后再继续寻找，一直循环下去。自动deref的规则是，如果类型<code>T</code>可以解引用为<code>U</code>，则<code>&amp;T</code>可以转为<code>U</code>。</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">let</span> s <span class="token operator">=</span> <span class="token string">"hello"</span><span class="token punctuation">;</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{}"</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span><span class="token function">len</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{}"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">len</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{}"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token operator">&amp;&amp;</span><span class="token operator">&amp;</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">len</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre>
-<p>如上面的代码所示，<code>str</code>类型有一个<code>fn len(&amp;self) -&gt; usize</code>方法，其参数类型是<code>&amp;str</code>。编译器在<code>&amp;&amp;&amp;&amp;str</code>类型里找不到对应的len方法，就会将其解引用为<code>&amp;&amp;&amp;str</code>类型继续寻找，以此类推直到解引用为<code>&amp;str</code>，方可成功匹配。</p>
-<p>自动解引用所带来的好处是使得智能指针透明化，能够在使用时感觉不到智能指针的存在。例如下面的代码中，变量<code>s</code>是<code>Box&lt;String&gt;</code>类型的智能指针，但<code>Box&lt;String&gt;</code>并没有<code>byte()</code>方法，所以编译器自动解引用，尝试<code>s.deref().bytes()</code>，但<code>String</code>类型也没有<code>byte()</code>方法，编译器继续将<code>String</code>解引用为<code>Str</code>，尝试<code>s.deref().deref().bytes()</code>，最终编译成功。</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">let</span> s <span class="token operator">=</span> Box<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">new</span><span class="token punctuation">(</span>String<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">from</span><span class="token punctuation">(</span><span class="token string">"hello"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{:?}"</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span><span class="token function">bytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre>
-<h3 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h3><h4 id="Box指针"><a href="#Box指针" class="headerlink" title="Box指针"></a>Box指针</h4><p><code>Box&lt;T&gt;</code>是Rust中的一种指针类型，它指向堆上的一个地址，并拥有该地址中变量的所有权。我们知道，借用<code>&amp;</code>本质上就是一个指针，也是Rust中最常见最普通的指针，借用指针不拥有变量的所有权。Box指针和借用指针的区别主要有两点：</p>
-<ul>
-<li>Box指针会取得变量的所有权，而借用指针不会。</li>
+                <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><ul>
+<li><p>按照功能的不同，软件可以分为<strong>系统软件</strong>、<strong>支撑软件</strong>和<strong>应用软件</strong>3类。系统软件是计算机系统中最靠近硬件的一层，为其他程序提供最底层的系统服务，它与具体的应用领域无关，如编译程序和操作系统等。支撑软件以系统软件为基础，以提高系统性能为主要目标，支撑应用软件的开发与运行，支撑软件主要包括环境数据库、各种接口软件和工具组。应用软件是提供特定应用服务的软件，如字处理程序等。</p>
+</li>
+<li><p>IEEE（Institute of Electrical and Electronics Engineers，电气和电子工程师协会）对<strong>软件工程的定义</strong>为：（1）将系统化、严格约束的、可量化的方法应用于软件的开发、运行和维护，即将工程化应用于软件。（2）对（1）中所述方法的研究。</p>
+</li>
+<li><p>在传统的软件工程中，软件开发的<strong>生命周期</strong>可以划分为可行性研究、需求分析、软件设计、软件实现、软件测试、软件维护等阶段。</p>
+</li>
 </ul>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">let</span> val <span class="token operator">=</span> Data <span class="token punctuation">{</span> data<span class="token punctuation">:</span> <span class="token number">10</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
-<span class="token keyword">let</span> borrow <span class="token operator">=</span> <span class="token operator">&amp;</span>val<span class="token punctuation">;</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{}"</span><span class="token punctuation">,</span> val<span class="token punctuation">.</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 正常输出</span>
-<span class="token keyword">let</span> boxed<span class="token punctuation">:</span> Box<span class="token operator">&lt;</span>Data<span class="token operator">></span> <span class="token operator">=</span> Box<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">new</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{}"</span><span class="token punctuation">,</span> val<span class="token punctuation">.</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// error[E0382]: borrow of moved value: `val`</span>
-</code></pre>
+<h3 id="软件开发模型"><a href="#软件开发模型" class="headerlink" title="软件开发模型"></a>软件开发模型</h3><ul>
+<li><p>瀑布模型：</p>
 <ul>
-<li>Box指针指向的变量一定在堆上，例如下面的代码中把一个变量从栈上移到堆上。</li>
+<li>具有不可回溯性，前一阶段的输出是后一阶段的输入。</li>
+<li>文档驱动。</li>
+<li>优点是过程模型简单，容易执行；缺点是无法适应变更（代价高）。</li>
+<li><img src="../images/31.png"></li>
 </ul>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">let</span> val <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
-<span class="token keyword">let</span> borrowed <span class="token operator">=</span> <span class="token operator">&amp;</span>val<span class="token punctuation">;</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{:p}"</span><span class="token punctuation">,</span> borrowed<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 输出：0x7ffc163864fc</span>
-<span class="token keyword">let</span> boxed <span class="token operator">=</span> Box<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">new</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{:p}"</span><span class="token punctuation">,</span> boxed<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 输出：0x55d6a3cabc10</span>
-</code></pre>
-<h4 id="Rc指针"><a href="#Rc指针" class="headerlink" title="Rc指针"></a>Rc指针</h4><p>很多语言的内存管理采用的是引用计数法，例如Python，当引用某个内存的变量的个数变为0时，该内存才会被释放。Rust中也提供了类似机制的指针<code>Rc&lt;T&gt;</code>：一块不可变内存可以有多个所有者，当所有的所有者消亡后，这块内存才会被释放。下面看一个<code>Rc</code>指针的例子：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">struct</span> SharedValue <span class="token punctuation">{</span>
-    value<span class="token punctuation">:</span> i32<span class="token punctuation">,</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">let</span> shared_value <span class="token operator">=</span> Rc<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">new</span><span class="token punctuation">(</span>SharedValue <span class="token punctuation">{</span> value<span class="token punctuation">:</span> <span class="token number">42</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">let</span> owner1 <span class="token operator">=</span> shared_value<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">let</span> owner2 <span class="token operator">=</span> shared_value<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-<span class="token function">println!</span><span class="token punctuation">(</span><span class="token string">"{:p} {:p}"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>owner1<span class="token punctuation">.</span>value<span class="token punctuation">,</span> <span class="token operator">&amp;</span>owner2<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre>
-<p>可以看到，<code>owner1</code>和<code>owner2</code>中的值的地址是相同的，这也是<code>Rc</code>指针的意义所在。在使用<code>Rc</code>指针时，有几点需要注意：</p>
+</li>
+<li><p>快速原型模型</p>
 <ul>
-<li><code>Rc</code>指针没有实现Copy Trait，要创造新的<code>Rc</code>指针，必须调用<code>clone</code>函数，此时引用计数值才会加1。如果使用直接赋值的方式，会执行move语义。</li>
-<li>每个<code>Rc</code>指针对它指向的数据只有读功能，与共享引用<code>&amp;</code>一致，因此它是内存安全的。<code>Rc</code>指针和共享引用的区别在于，共享引用对数据完全没有所有权，不负责内存的释放，<code>Rc</code>指针会在引用计数减到0的时候释放内存。</li>
-<li><code>Rc</code>指针实现了Deref Trait，可以直接使用小数点语法，编译器会自动进行解引用</li>
+<li><p>快速原型的基本思想是快速建立一个能反映用户主要需求的原型系统，让用户在计算机上试用它，通过实践来了解目标系统的概貌。</p>
+</li>
+<li><p>快速原型的本质是“快速”。开发人员应该尽可能快地建造出原型系统，以加速软件开发过程，节约软件开发成本。</p>
+</li>
+<li><p><img src="../images/32.png"></p>
+</li>
 </ul>
-<h4 id="Cow指针"><a href="#Cow指针" class="headerlink" title="Cow指针"></a>Cow指针</h4><p>COW代表的是Copy-On-Write技术，也就是“写时复制技术”，如果有一份资源的复制的代价很昂贵，而复制之后的值没有被修改，这时就可以执行浅复制，等到真正被修改的时候再执行深复制。COW的优点是把克隆操作推迟到真正需要“复制并写操作”的时候发生。在Rust中，因为Clone和Copy有明确的不同，因此COW可以理解为Clone-On-Write。</p>
-<p><code>Cow</code>类型的实现是一个<code>enum</code>，它对指向的数据有两种状态，一种是“拥有所有权”，另一种是“不拥有所有权”。当它只需对所指向的数据进行只读访问的时候，它就只是一个借用指针；当它需要写数据时，它会先分配内存执行复制操作，再对自己拥有所有权的内存进行写入操作。</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">pub</span> <span class="token keyword">enum</span> Cow<span class="token operator">&lt;</span><span class="token string">'a, B: ?Sized + '</span>a<span class="token operator">></span>
-<span class="token keyword">where</span>
-    B<span class="token punctuation">:</span> ToOwned<span class="token punctuation">,</span>
-<span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">/// Borrowed data.</span>
-    <span class="token function">Borrowed</span><span class="token punctuation">(</span>#<span class="token punctuation">[</span><span class="token function">stable</span><span class="token punctuation">(</span>feature <span class="token operator">=</span> <span class="token string">"rust1"</span><span class="token punctuation">,</span> since <span class="token operator">=</span> <span class="token string">"1.0.0"</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">&amp;</span>'a B<span class="token punctuation">)</span><span class="token punctuation">,</span>
-
-    <span class="token comment" spellcheck="true">/// Owned data.</span>
-    <span class="token function">Owned</span><span class="token punctuation">(</span>#<span class="token punctuation">[</span><span class="token function">stable</span><span class="token punctuation">(</span>feature <span class="token operator">=</span> <span class="token string">"rust1"</span><span class="token punctuation">,</span> since <span class="token operator">=</span> <span class="token string">"1.0.0"</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">&lt;</span>B <span class="token keyword">as</span> ToOwned<span class="token operator">></span><span class="token punctuation">:</span><span class="token punctuation">:</span>Owned<span class="token punctuation">)</span><span class="token punctuation">,</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<h3 id="Clone和Copy"><a href="#Clone和Copy" class="headerlink" title="Clone和Copy"></a>Clone和Copy</h3><p>之前我们讲过，移动语义和复制语义是Rust所有权系统中的两个核心概念。在Rust标准库里，Clone和Copy这两个trait在字面上都提供了“复制”的意思，但它们实际上有很大的区别。</p>
-<p>Copy trait的全名是<code>std::marker::Copy</code>，注意，在<code>std::marker</code>里的trait都是特殊trait，它们没有方法，只是用于给类型做一个标记，impl这些trait对编译器的行为有重要影响。目前<code>std::marker</code>里稳定的trait有四个，它们是<code>Copy</code>、<code>Send</code>、<code>Sized</code>、<code>Sync</code>。如果一个类型impl了Copy这个trait，那么它在变量绑定、函数参数传递和函数返回值传递等场景下，都是Copy语义，而不再是默认的Move语义。</p>
-<p>需要注意的是，并不是所有的类型都可以实现Copy trait，Rust规定，对于自定义类型，只有所有成员都实现了Copy trait，这个类型才有资格实现Copy trait。可以认为，Rust中只有POD（Plain Old Data）才有资格实现Copy trait，常见的POD类型有整数、浮点数等，而<code>String</code>等都不属于POD。</p>
-<p>Clone trait的全名是<code>std::clone::Clone</code>，它的完整声明如下：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">pub</span> <span class="token keyword">trait</span> Clone<span class="token punctuation">:</span> Sized <span class="token punctuation">{</span>    
-    <span class="token keyword">fn</span> <span class="token function">clone</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> Self<span class="token punctuation">;</span>    
-    <span class="token keyword">fn</span> <span class="token function">clone_from</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token keyword">self</span><span class="token punctuation">,</span> source<span class="token punctuation">:</span> <span class="token operator">&amp;</span>Self<span class="token punctuation">)</span> <span class="token punctuation">{</span>        
-        <span class="token operator">*</span><span class="token keyword">self</span> <span class="token operator">=</span> source<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span>    
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>可以看到，其最关键的是需要手动实现的<code>clone</code>方法。<code>clone</code>方法一般用于“基于语义的复制”的操作，所以，其具体实现和具体类型息息相关。例如，对于<code>Box</code>类型，<code>Clone</code>执行的是“深复制”；对于<code>Rc</code>类型，<code>Clone</code>做的事情是把引用计数值加1。</p>
-<h3 id="Drop"><a href="#Drop" class="headerlink" title="Drop"></a>Drop</h3><p>我们在C++中接触过构造函数和析构函数的概念，Rust中没有构造函数的说法，而是一般将对象的创建封装到普通静态函数中，而对于析构函数，Rust提供了Drop trait。Drop trait的定义如下：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">pub</span> <span class="token keyword">trait</span> Drop <span class="token punctuation">{</span>    
-    <span class="token keyword">fn</span> <span class="token function">drop</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> <span class="token keyword">self</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>Drop trait允许在对象即将消亡之时，自行调用指定代码，从而达到自动化管理资源的作用，这类似于C++的RAII编程手法，在变量生命周期开始时申请资源，在变量生命周期结束时利用析构函数释放资源。这里的资源，不仅可以包括内存，还可以包括其他向操作系统申请的资源，例如文件句柄。</p>
-<p>需要注意的是，用户主动调用<code>drop</code>方法是非法的，编译器不允许手动调用析构函数。那么，该如何做到让局部变量在语句块结束前提前终止生命周期呢？办法是调用<code>std::mem::drop</code>函数，该函数的实现非常简单：</p>
-<pre class=" language-rust"><code class="language-rust"><span class="token keyword">pub</span> <span class="token keyword">fn</span> drop<span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token punctuation">(</span>_x<span class="token punctuation">:</span> T<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
-</code></pre>
-<p>将对象的所有权移入函数中，什么都不用做，编译器就会自动释放掉这个对象了。不过，对于实现了Copy trait的类型来说，对它调用该函数是没有意义的。</p>
-<p>另外，Rust规定，Drop和Copy不能同时存在于一个类型上，具体原因先不表。</p>
-<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><ul>
-<li>《Rust编程之道》张汉东</li>
-<li>《深入浅出Rust》范长春</li>
+</li>
+<li><p>增量模型</p>
+<ul>
+<li>增量模型是把待开发的软件系统模块化，将每个模块作为一个增量组件，从而分批次地分析、设计、编码和测试这些增量组件。</li>
+<li>增量模型的缺点是要求待开发的软件系统可以被模块化。如果待开发的软件系统很难被模块化，那么将会给增量开发带来很多麻烦。</li>
+<li><img src="../images/33.png"></li>
+</ul>
+</li>
+<li><p>螺旋模型</p>
+<ul>
+<li>螺旋模型是一种用于开发风险较大的大型软件项目的开发模型。该模型将瀑布模型与快速原型模型结合起来，并且加入了这两种模型忽略了的风险分析。</li>
+<li><img src="../images/34.png"></li>
+</ul>
+</li>
+<li><p>喷泉模型</p>
+<ul>
+<li>“喷泉”一词体现了面向对象方法的迭代和无间隙性。迭代是指各阶段需要多次重复。例如，分析和设计阶段常常需要多次、重复进行，以更好地实现需求。无间隙性是指各个阶段之间没有明显的界限，并常常在时间上互相交叉，并行进行。</li>
+<li><img src="../images/35.png"></li>
+</ul>
+</li>
+</ul>
+<h3 id="可行性研究"><a href="#可行性研究" class="headerlink" title="可行性研究"></a>可行性研究</h3><ul>
+<li><strong>技术可行性</strong>主要研究待开发系统的功能、性能和限制条件，确定现有技术能否实现有关的解决方案，在现有的资源条件下实现新系统的技术风险有多大。</li>
+<li><strong>操作可行性</strong>研究决定在当前的政治意识形态、法律法规、社会道德、民族意识以及系统运行的组织机构或人员等环境下，系统的操作是否可行。</li>
+<li><strong>经济可行性</strong>用于评估基于项目的经济合理性，给出项目开发的成本论证，并将估算的成本与预期的利润进行对比。</li>
+</ul>
+<h3 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h3><ul>
+<li><p>确定系统的<strong>运行环境需求</strong>：包括硬件环境要求和软件环境要求</p>
+</li>
+<li><p>确定系统的<strong>功能性需求和非功能性需求</strong>：需求可以分为功能性需求和非功能性需求两大类，功能性需求定义了系统做什么，非功能性需求定义了系统工作时的特性。</p>
+<ul>
+<li>功能需求是软件系统最基本的需求表述，包括对系统应该提供的服务，如何对输入做出反应以及系统在特定条件下的行为描述。</li>
+<li>非功能性需求包括对系统提出的性能需求、可靠性和可用性需求、系统安全以及系统对开发过程、时间、资源等方面的约束和标准等。</li>
+</ul>
+</li>
+<li><p><strong>软件需求规格说明书</strong>是需求分析阶段的输出，它全面、清晰地描述了用户需求，因此是开发人员进行后续软件设计的重要依据。</p>
+</li>
+<li><p><img src="../images/36.png"></p>
+</li>
+<li><p>一种考虑数据和处理的<strong>需求分析方法</strong>被称为<strong>结构化分析</strong>（Structured Analysis，SA）方法，它是20世纪70年代由Yourdon Constaintine及DeMarco等人提出和发展，并得到广泛应用的。它基于“分解”和“抽象”的基本思想，逐步建立目标系统的逻辑模型，进而描绘出满足用户要求的软件系统。</p>
+</li>
+</ul>
+<h3 id="软件设计"><a href="#软件设计" class="headerlink" title="软件设计"></a>软件设计</h3><ul>
+<li><strong>软件设计的目标</strong>就是要回答“怎么做”才能实现软件系统的问题，也可以把设计阶段的任务理解为把软件系统能“做什么”的逻辑模型转换为“怎么做”的物理模型。</li>
+<li>从活动任务来看，软件设计是对软件需求进行数据设计、体系结构设计、接口设计、构件设计和部署设计。</li>
+<li>从工程管理角度来看，软件设计分为概要设计（总体设计）和详细设计。<ul>
+<li>概要设计：概要设计确定软件的结构以及各组成部分之间的相互关系。它以需求规格说明书为基础，概要地说明软件系统的实现方案。</li>
+<li>详细设计：详细设计确定模块内部的算法和数据结构，产生描述各模块程序过程的详细文档。</li>
+</ul>
+</li>
+</ul>
+<h3 id="软件测试"><a href="#软件测试" class="headerlink" title="软件测试"></a>软件测试</h3><ul>
+<li><img src="../images/37.png"></li>
+</ul>
+<ul>
+<li>黑盒测试：不需要关心盒子的内部结构和内部特性，只关注软件产品的输入数据和输出结果，从而检查软件产品是否符合它的功能说明。</li>
+<li>白盒测试：关注软件产品的内部细节和逻辑结构，即把被测的程序看成是一个透明的盒子。</li>
+<li>黑盒测试和白盒测试都是<strong>基于用例的测试方法</strong>，因为它们都通过运行测试用例来发现问题。根据设计用例方法的不同，黑盒测试包括等价类划分法、边界值分析法、错误推测法、因果图法等，白盒测试包括逻辑覆盖测试方法和基本路径测试等方法。</li>
+<li>等价类划分法：等价类划分是把程序的输入域划分为若干子集，然后从每个子集中选取少数具有代表性的数据用作测试用例，选取的输入数据对于揭露程序中的错误都是等效的。<ul>
+<li>等价类分为有效等价类和无效等价类。</li>
+<li>有效等价类是指对程序的规格说明是有意义的、由合理的输入数据构成的集合。无效等价类反之。</li>
+<li>设计测试用例的步骤：（1）对每个输入和外部条件进行等价类划分，画出等价类表，并为每个等价类编号。（2）设计一个测试用例，使其尽可能多地覆盖有效等价类，重复这一步，直到覆盖所有的有效等价类。（3）为每一个无效等价类设计一个测试用例。</li>
+</ul>
+</li>
+<li>边界值分析法：边界值分析法是补充等价类划分法的一种黑盒测试方法，它不是选择等价类中的任意元素，而是选择等价类边界的测试用例。</li>
+<li>错误推测法：错误推测法在很大程度上靠直觉和经验进行。它的基本想法是列举出程序中可能有的错误和容易发生错误的特殊情况，并且根据它们选择测试方案。</li>
+<li>逻辑覆盖法：逻辑覆盖法以程序内在的逻辑结构为基础，根据程序的流程图设计测试用例。根据覆盖的目标不同，又可分为语句覆盖、分支覆盖、条件覆盖、分支-条件覆盖、条件组合覆盖和路径覆盖。<ul>
+<li>语句覆盖的基本思想是，设计若干测试用例，运行被测试的程序，使程序中的每个可执行语句至少执行一次。</li>
+<li>分支覆盖的思想是使每个判断的取真分支和取假分支至少执行一次。</li>
+<li>条件覆盖的思想是使每个判断的所有逻辑条件的每种可能取值至少执行一次。</li>
+<li>分支-条件覆盖就是要同时满足分支覆盖和条件覆盖的要求。</li>
+<li>条件组合覆盖的思想是使每个判断语句的所有逻辑条件的可能取值组合至少执行一次。</li>
+<li>路径覆盖的思想是覆盖被测试程序中的所有可能路径。</li>
+</ul>
+</li>
+<li>软件测试的一般步骤：<ul>
+<li>最开始，着重测试每个单独的模块，以确保它作为一个单元来说功能是正确的，这种测试称为<strong>单元测试</strong>。单元测试大量使用白盒测试技术，检查模块控制结构中的特定路径，以确保完全覆盖并发现最大数量的错误。</li>
+<li>接下来，必须把模块装配（即集成）在一起形成完整的软件包，在装配的同时进行测试，因此称为<strong>集成测试</strong>。集成测试同时解决程序验证和程序构造这两个问题。在集成过程中最常用的是黑盒测试用例设计技术。</li>
+<li>软件一旦确认之后，就必须和其他系统元素（如硬件、人员、数据库）结合在一起。<strong>系统测试</strong>的任务是，验证所有系统元素都能正常配合，从而可以完成整个系统的功能，并能达到预期的性能。</li>
+<li><strong>验收测试</strong>以用户测试为主，分为α测试和β测试。α测试是指由用户、测试人员、开发人员等共同参与的内部测试，β测试是指完全交给最终用户的测试。</li>
+</ul>
+</li>
+<li>单元测试：单元测试是开发者编写代码检验被测代码的某单元功能是否正确而进行的测试。</li>
+<li>集成测试：主要是测试软件单元的组合能否正常工作以及与其他组的模块能否集成起来工作。</li>
+<li>系统测试：随着测试概念的发展，当前系统测试已逐渐侧重于验证系统是否符合需求规定的非功能指标。</li>
+<li>验收测试：验收测试是在软件开发结束后，用户实际使用软件产品之前，进行的最后一次质量检验活动，主要回答开发的软件是否符合预期的各项要求以及用户能否接受的问题。验收测试主要验证软件功能的正确性和需求符合性。单元测试、集成测试和系统测试的目的是发现软件错误，将软件缺陷排除在交付客户之前，<strong>验收测试则需要客户共同参与</strong>，目的是确认软件符合需求规格。</li>
 </ul>
 
                 
@@ -532,7 +529,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://janetmayle.github.io/janetmayle.github.io/posts/c6a197fe.html">https://janetmayle.github.io/janetmayle.github.io/posts/c6a197fe.html</a>
+                    <a href="https://janetmayle.github.io/janetmayle.github.io/posts/5218a5b6.html">https://janetmayle.github.io/janetmayle.github.io/posts/5218a5b6.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -570,12 +567,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Rust/">
-                                    <span class="chip bg-color">Rust</span>
-                                </a>
-                            
-                                <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-                                    <span class="chip bg-color">学习笔记</span>
+                                <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                                    <span class="chip bg-color">读书笔记</span>
                                 </a>
                             
                         </div>
@@ -621,50 +614,48 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/posts/e0a6b56.html">
+                <a href="/posts/5218a5b6.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Rust学习笔记#9：闭包">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="《软件工程：理论与实践》学习笔记">
                         
-                        <span class="card-title">Rust学习笔记#9：闭包</span>
+                        <span class="card-title">《软件工程：理论与实践》学习笔记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            介绍闭包的概念
+                            《软件工程》学科应试必备知识点
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-15
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-08-06
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Rust/" class="post-category">
-                                    Rust
+                            <a href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" class="post-category">
+                                    读书笔记
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Rust/">
-                        <span class="chip bg-color">Rust</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-                        <span class="chip bg-color">学习笔记</span>
+                    <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                        <span class="chip bg-color">读书笔记</span>
                     </a>
                     
                 </div>
@@ -678,31 +669,31 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/posts/9fd89a5d.html">
+                <a href="/posts/10d4fadd.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Rust学习笔记#7：泛型">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="七步洗手法">
                         
-                        <span class="card-title">Rust学习笔记#7：泛型</span>
+                        <span class="card-title">七步洗手法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            介绍所有权系统的概念
+                            口诀：“内外夹攻大力丸”
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-13
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-18
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Rust/" class="post-category">
-                                    Rust
+                            <a href="/categories/%E6%9D%82%E5%AD%A6/" class="post-category">
+                                    杂学
                                 </a>
                             
                             
@@ -712,12 +703,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Rust/">
-                        <span class="chip bg-color">Rust</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-                        <span class="chip bg-color">学习笔记</span>
+                    <a href="/tags/%E6%9D%82%E5%AD%A6/">
+                        <span class="chip bg-color">杂学</span>
                     </a>
                     
                 </div>
